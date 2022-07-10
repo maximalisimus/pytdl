@@ -27,8 +27,8 @@
 
 # Basic .gitattributes for a python repo.
 
-# * linguist-vendored
-# *.py linguist-vendored=false
+* linguist-vendored
+*.py linguist-vendored=false
 
 # Source files
 # ============
