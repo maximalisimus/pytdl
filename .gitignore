@@ -1,6 +1,6 @@
 # bashrc files
 .bashrc
-.bat
+*.bat
 
 # venv directoryes
 linux-env/
