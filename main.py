@@ -2,6 +2,8 @@
 # -*- coding: utf-8 -*-
 
 # pip install pytube
+# pip install nuitka
+# nuitka3 hello.py
 
 import pathlib
 import pytube
