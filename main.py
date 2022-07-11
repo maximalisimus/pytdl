@@ -30,6 +30,24 @@ def downloadYouTube(urlFile: str, yourPath: str = None, FName: str = None, quali
 	yt = yt.streams.filter(progressive=True, mime_type="video/mp4", res="720p").first()
 	yt.download(output_path=yourPath, filename=FName)
 
+def download_PlayList(link: str, full_Path: str):
+	playlist = pytube.Playlist('playlist-url')
+	all_count = str(len(playlist.video_urls))
+	all_count = len(playlist.video_urls)
+	print('Number of videos in playlist: %s' % all_count)
+	download_path = str(pathlib.Path(full_Path)
+	if not pathlib.Path(download_path).exists():
+		pathlib.Path(download_path).mkdir(parents=True, exist_ok=True)
+	video_url = [] 
+	for url in playlist.video_urls:
+		video_url.append(url)
+	index = 1
+	for onURL in video_url:
+		fname = str(index) + '.' + getTitle(onURL)
+		print(fname, all_count)
+		downloadYouTube(onURL, download_path, fname, '1024p')
+		index+=1
+
 def main():
 	playlist = pytube.Playlist('playlist-url')
 	all_count = str(len(playlist.video_urls))
