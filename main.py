@@ -179,7 +179,7 @@ def saveOneAllInfo(link: str, textFile: str, isInfo: bool = True):
 			outstr = item['url'] + '\n'
 			f.write(outstr)
 			index+=1
-		f.write('\n')
+		f.write('---------------------------------\n')
 	print('The file info on one Video is [OK].')
 
 def savePlayList(link: str, textFile: str, isInfo: bool = True):
@@ -201,7 +201,7 @@ def savePlayList(link: str, textFile: str, isInfo: bool = True):
 			outstr = item['url'] + '\n'
 			f.write(outstr)
 			index+=1
-		f.write('\n')
+		f.write('---------------------------------\n')
 	print('The file info on PlayList is [OK].')
 
 def saveURLVideo(link: str, textFile: str, isIndex: bool = False):
@@ -213,7 +213,7 @@ def saveURLVideo(link: str, textFile: str, isIndex: bool = False):
 		else:
 			outstr = link + '\n'
 		f.write(outstr)
-		f.write('\n')
+		f.write('---------------------------------\n')
 	print('The file info on one Video is [OK].')
 
 def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
@@ -231,7 +231,7 @@ def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
 				outstr = item + '\n'
 			f.write(outstr)
 			count+=1
-		f.write('\n')
+		f.write('---------------------------------\n')
 	print('The file info on PlayList is [OK].')
 
 def saveOneInfo(link: str, textFile: str, isInfo: bool = True):
@@ -247,7 +247,7 @@ def saveOneInfo(link: str, textFile: str, isInfo: bool = True):
 				outstr = str(index) + '. ' + item['title'] + '\n'
 			f.write(outstr)
 			index+=1
-		f.write('\n')
+		f.write('---------------------------------\n')
 	print('The file info on one Video is [OK].')
 	# saveInfoPlayList
 
@@ -264,7 +264,7 @@ def saveInfoPlayList(link: str, textFile: str, isInfo: bool = True):
 				outstr = str(index) + '. ' + item['title'] + '\n'
 			f.write(outstr)
 			index+=1
-		f.write('\n')
+		f.write('---------------------------------\n')
 	print('The file info on PlayList is [OK].')
 
 def main():
@@ -273,19 +273,33 @@ def main():
 	#url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
 	#folder = './'
 	#plfile = './playlist-test.txt'
-	#savePlayList(url, plfile, False)
-	#savePlayList(url, plfile, True)
-	#saveInfoPlayList(url, plfile, False)
-	#saveInfoPlayList(url, plfile, True)
-	#saveURLPlayList(url, plfile, False)
-	#saveURLPlayList(url, plfile, True)
+	'''
+	print('savePlayList variant-1')
+	savePlayList(url, plfile, False)
+	print('savePlayList variant-2')
+	savePlayList(url, plfile, True)
+	print('saveInfoPlayList variant-1')
+	saveInfoPlayList(url, plfile, False)
+	print('saveInfoPlayList variant-2')
+	saveInfoPlayList(url, plfile, True)
+	print('saveURLPlayList variant-1')
+	saveURLPlayList(url, plfile, False)
+	print('saveURLPlayList variant-2')
+	saveURLPlayList(url, plfile, True)
 	#
-	#saveOneAllInfo(url, plfile, False)
-	#saveOneAllInfo(url, plfile, True)
-	#saveOneInfo(url, plfile, False)
-	#saveOneInfo(url, plfile, True)
-	#saveURLVideo(url, plfile, False)
-	#saveURLVideo(url, plfile, True)
+	print('saveOneAllInfo variant-1')
+	saveOneAllInfo(url, plfile, False)
+	print('saveOneAllInfo variant-2')
+	saveOneAllInfo(url, plfile, True)
+	print('saveOneInfo variant-1')
+	saveOneInfo(url, plfile, False)
+	print('saveOneInfo variant-2')
+	saveOneInfo(url, plfile, True)
+	print('saveURLVideo variant-1')
+	saveURLVideo(url, plfile, False)
+	print('saveURLVideo variant-2')
+	saveURLVideo(url, plfile, True)
+	'''
 	'''
 	if 'playlist' in url:
 		#downloadPlayList(url, folder)
