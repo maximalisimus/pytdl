@@ -206,7 +206,7 @@ def savePlayList(link: str, textFile: str, isInfo: bool = True):
 	if link != '':
 		info = getVideoInfo(link)
 	else:
-		info = getVideoLIST(link)
+		info = getVideoLIST()
 	print("The file is write info on PlayList. Please, wait.")
 	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
@@ -249,8 +249,8 @@ def readURLTextFile(onFile: str):
 
 def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
 	global video_url
-	video_url.clear()
 	if link != '':
+		video_url.clear()
 		_, video_url = getPlayList(link)
 	print("The file is write info on PlayList. Please, wait.")
 	checkPathText(textFile)
@@ -287,7 +287,7 @@ def saveInfoPlayList(link: str, textFile: str, isInfo: bool = True):
 	if link != '':
 		info = getVideoInfo(link)
 	else:
-		info = getVideoLIST(link)
+		info = getVideoLIST()
 	print("The file is write info on PlayList. Please, wait.")
 	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
@@ -307,9 +307,23 @@ def main():
 	#url = 'https://www.youtube.com/watch?v=V3h2iq2mylI&list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT&index=2'
 	#url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
 	#folder = '/home/mikl/003/'
-	#plfile = './playlist-test.txt'
+	#plfile = './playlist-test2.txt'
 	#playlist_text = 'playlist.txt'
 	#readURLTextFile(playlist_text)
+	'''
+	print('savePlayList variant-1')
+	savePlayList('', plfile, False)
+	print('savePlayList variant-2')
+	savePlayList('', plfile, True)
+	print('saveInfoPlayList variant-1')
+	saveInfoPlayList('', plfile, False)
+	print('saveInfoPlayList variant-2')
+	saveInfoPlayList('', plfile, True)
+	print('saveURLPlayList variant-1')
+	saveURLPlayList('', plfile, False)
+	print('saveURLPlayList variant-2')
+	saveURLPlayList('', plfile, True)
+	'''
 	'''
 	print('savePlayList variant-1')
 	savePlayList(url, plfile, False)
@@ -323,7 +337,8 @@ def main():
 	saveURLPlayList(url, plfile, False)
 	print('saveURLPlayList variant-2')
 	saveURLPlayList(url, plfile, True)
-	#
+	'''
+	'''
 	print('saveOneAllInfo variant-1')
 	saveOneAllInfo(url, plfile, False)
 	print('saveOneAllInfo variant-2')
