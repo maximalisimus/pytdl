@@ -8,11 +8,22 @@
 import pathlib
 import pytube
 
+video_size = {1: '240p',
+			2: '360p',
+			3: '480p',
+			4: '720p',
+			5: '1024p'}
+
 def on_progress(stream, chunk, bytes_remaining):
 	total_size = stream.filesize
 	bytes_downloaded = total_size - bytes_remaining
 	percentage_of_completion = round(bytes_downloaded / total_size * 100)
-	print(percentage_of_completion)
+	if percentage_of_completion == 100:
+		print(f"{percentage_of_completion}%\t\t[OK]")
+	elif percentage_of_completion < 100 and percentage_of_completion > 0:
+		print(f"{percentage_of_completion}% ...")
+	else:
+		print(f"{percentage_of_completion}%\t\t[ERROR]")
 
 def filterName(innames: str) -> str:
 	outname = str(innames).replace('|', '.').replace('%', '.').replace(':', '.').replace('"', '.').replace("'", ".").replace('<', '.').replace('>', '.')\
@@ -27,26 +38,34 @@ def getTitle(urlFile: str) -> str:
 
 def downloadYouTube(urlFile: str, yourPath: str = None, FName: str = None, quality: str = '720p'):
 	yt = pytube.YouTube(urlFile, on_progress_callback=on_progress)
-	yt = yt.streams.filter(progressive=True, mime_type="video/mp4", res="720p").first()
+	yt = yt.streams.filter(progressive=True, mime_type="video/mp4", res=quality).first()
 	yt.download(output_path=yourPath, filename=FName)
 
-def download_PlayList(link: str, fullPath: str):
-	playlist = pytube.Playlist('playlist-url')
+def downloadPlayList(link: str, fullPath: str, size_count: int):
+	playlist = pytube.Playlist(link)
 	all_count = str(len(playlist.video_urls))
-	all_count = len(playlist.video_urls)
+	#all_count = len(playlist.video_urls)
 	print('Number of videos in playlist: %s' % all_count)
-	download_path = str(pathlib.Path(fullPath)
+	download_path = str(pathlib.Path(fullPath).resolve())
 	if not pathlib.Path(download_path).exists():
 		pathlib.Path(download_path).mkdir(parents=True, exist_ok=True)
-	video_url = [] 
+	video_url = []
 	for url in playlist.video_urls:
 		video_url.append(url)
 	index = 1
 	for onURL in video_url:
 		fname = str(index) + '.' + getTitle(onURL)
-		print(fname, all_count)
-		downloadYouTube(onURL, download_path, fname, '1024p')
+		print(f"{fname}\n{index}/{all_count}")
+		downloadYouTube(onURL, download_path, fname, video_size[size_count])
 		index+=1
+
+def downloadVideo(link: str, fullPath: str, size_count: int):
+	download_path = str(pathlib.Path(fullPath).resolve())
+	if not pathlib.Path(download_path).exists():
+		pathlib.Path(download_path).mkdir(parents=True, exist_ok=True)
+	fname = getTitle(link)
+	print(f"{fname}")
+	downloadYouTube(link, download_path, fname, video_size[size_count])
 
 def main():
 	playlist = pytube.Playlist('playlist-url')
