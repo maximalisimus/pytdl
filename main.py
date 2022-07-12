@@ -104,8 +104,11 @@ def downloadPlayList(link: str, inPath: str):
 	global Quality
 	global video_url
 	download_path = checkPath(inPath)
-	video_url.clear()
-	all_count, video_url = getPlayList(link)
+	if link != '':
+		video_url.clear()
+		all_count, video_url = getPlayList(link)
+	else:
+		all_count = len(video_url)
 	print(f"Number of videos in playlist: {all_count}")
 	index = 1
 	for onURL in video_url:
@@ -137,6 +140,23 @@ def getVideoInfo(link: str) -> list:
 	videoList = []
 	video_url.clear()
 	all_count, video_url = getPlayList(link)
+	index = 1
+	for onURL in video_url:
+		print(f"Get info: {onURL} ({index}/{all_count})")
+		fname = getClearTitle(onURL)
+		isVideoCount = f"({index}/{all_count},{Quality})"
+		print(f"Info: {fname} ({Quality})")
+		videoList.append({'info': isVideoCount, 'title': fname, 'url': onURL})
+		index+=1
+	print('Get info [OK].')
+	return videoList[:]
+
+def getVideoLIST() -> list:
+	global isVideoCount
+	global Quality
+	global video_url
+	videoList = []
+	all_count = len(video_url)
 	index = 1
 	for onURL in video_url:
 		print(f"Get info: {onURL} ({index}/{all_count})")
@@ -183,7 +203,10 @@ def saveOneAllInfo(link: str, textFile: str, isInfo: bool = True):
 	print('The file info on one Video is [OK].')
 
 def savePlayList(link: str, textFile: str, isInfo: bool = True):
-	info = getVideoInfo(link)
+	if link != '':
+		info = getVideoInfo(link)
+	else:
+		info = getVideoLIST(link)
 	print("The file is write info on PlayList. Please, wait.")
 	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
@@ -216,10 +239,19 @@ def saveURLVideo(link: str, textFile: str, isIndex: bool = False):
 		f.write('---------------------------------\n')
 	print('The file info on one Video is [OK].')
 
+def readURLTextFile(onFile: str):
+	global video_url
+	txtFile = str(pathlib.Path(onFile).resolve())
+	if pathlib.Path(txtFile).exists():
+		with open(txtFile, 'r') as f:
+			output = f.read().splitlines()
+		video_url = output[:]
+
 def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
 	global video_url
 	video_url.clear()
-	_, video_url = getPlayList(link)
+	if link != '':
+		_, video_url = getPlayList(link)
 	print("The file is write info on PlayList. Please, wait.")
 	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
@@ -271,7 +303,7 @@ def main():
 	# test
 	#url = 'https://www.youtube.com/watch?v=V3h2iq2mylI&list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT&index=2'
 	#url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
-	#folder = './'
+	#folder = '/home/mikl/003/'
 	#plfile = './playlist-test.txt'
 	'''
 	print('savePlayList variant-1')
@@ -300,6 +332,9 @@ def main():
 	print('saveURLVideo variant-2')
 	saveURLVideo(url, plfile, True)
 	'''
+	#playlist_text = 'playlist.txt'
+	#readURLTextFile(playlist_text)
+	#downloadPlayList('', folder)
 	'''
 	if 'playlist' in url:
 		#downloadPlayList(url, folder)
