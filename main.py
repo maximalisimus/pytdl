@@ -12,6 +12,7 @@
 # Windows: PyQT5 PyQT5-sip PyQT6 PyQT6-sip
 #
 # nuitka3 hello.py
+#
 # pyinstaller hello.py
 # --onefile — сборка в один файл, т.е. файлы .dll не пишутся.
 # --windowed -при запуске приложения, будет появляться консоль.
@@ -30,6 +31,8 @@ Quality = ''
 isVideoCount = ''
 onVideo = []
 fileLogs = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
+
+video_url = []
 
 def on_progress(stream, chunk, bytes_remaining):
 	global isVideoCount
@@ -64,25 +67,37 @@ def getTitle(urlFile: str) -> str:
 	outname = filterName(yt.title) + '_' + Quality + '.mp4'
 	return outname
 
+def getClearTitle(urlFile: str) -> str:
+	global Quality
+	yt = pytube.YouTube(urlFile)
+	Quality = yt.streams.get_highest_resolution().resolution
+	outname = filterName(yt.title)
+	return outname
+
 def downloadYouTube(urlFile: str, onPath: str = None, FName: str = None):
 	yt = pytube.YouTube(urlFile, on_progress_callback=on_progress)
 	yt = yt.streams.get_highest_resolution()
 	yt.download(output_path=onPath, filename=FName)
 
+def getPlayList(link: str):
+	playlist = pytube.Playlist(link)
+	counter = len(playlist.video_urls)
+	videoList = []
+	for url in playlist.video_urls:
+		videoList.append(url)
+	return counter, videoList[:]
+
 def downloadPlayList(link: str, inPath: str):
 	global isVideoCount
 	global onVideo
 	global Quality
-	playlist = pytube.Playlist(link)
-	all_count = str(len(playlist.video_urls))
-	#all_count = len(playlist.video_urls)
-	print('Number of videos in playlist: %s' % all_count)
+	global video_url
 	download_path = str(pathlib.Path(inPath).resolve())
 	if not pathlib.Path(download_path).exists():
 		pathlib.Path(download_path).mkdir(parents=True, exist_ok=True)
-	video_url = []
-	for url in playlist.video_urls:
-		video_url.append(url)
+	video_url.clear()
+	all_count, video_url = getPlayList(link)
+	print(f"Number of videos in playlist: {all_count}")
 	index = 1
 	for onURL in video_url:
 		fname = str(index) + '.' + getTitle(onURL)
@@ -108,24 +123,92 @@ def downloadVideo(link: str, inPath: str):
 	print(fname)
 	downloadYouTube(link, download_path, fname)
 
-def main():
-	'''
-	with open('selfedu.txt', 'w') as the_file:
-		index=1
-		for url in playlist.video_urls:
-			the_file.write(str(index))
-			the_file.write(' ')
-			the_file.write(url)
-			the_file.write('\n')
+def getVideoInfo(link: str) -> list:
+	global isVideoCount
+	global Quality
+	global video_url
+	videoList = []
+	video_url.clear()
+	all_count, video_url = getPlayList(link)
+	index = 1
+	for onURL in video_url:
+		print(f"Get info: {onURL} ({index}/{all_count})")
+		fname = getClearTitle(onURL)
+		isVideoCount = f"({index}/{all_count},{Quality})"
+		print(f"Info: {fname} ({Quality})")
+		videoList.append({'info': isVideoCount, 'title': fname, 'url': onURL})
+		index+=1
+	print('Get info [OK].')
+	return videoList[:]
+
+def savePlayList(link: str, textFile: str, isInfo: bool = True):
+	info = getVideoInfo(link)
+	print("The file is write info on PlayList. Please, wait.")
+	with open(textFile, 'a+') as f:
+		index = 1
+		for item in info:
+			if isInfo:
+				outstr = str(index) + '. ' + item['title'] + '\n' + item['info'] + '\n'
+			else:
+				outstr = str(index) + '. ' + item['title'] + '\n'
+			f.write(outstr)
 			index+=1
-	'''
+		f.write('\n')
+		index = 1
+		for item in info:
+			outstr = item['url'] + '\n'
+			f.write(outstr)
+			index+=1
+		f.write('\n')
+	print('The file info on PlayList is [OK].')
+
+def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
+	global video_url
+	video_url.clear()
+	_, video_url = getPlayList(link)
+	print("The file is write info on PlayList. Please, wait.")
+	with open(textFile, 'a+') as f:
+		count = 1
+		for item in video_url:
+			if isIndex:
+				outstr = str(count) + '. ' + item + '\n'
+			else:
+				outstr = item + '\n'
+			f.write(outstr)
+			count+=1
+		f.write('\n')
+	print('The file info on PlayList is [OK].')
+
+def saveInfoPlayList(link: str, textFile: str, isInfo: bool = True):
+	info = getVideoInfo(link)
+	print("The file is write info on PlayList. Please, wait.")
+	with open(textFile, 'a+') as f:
+		index = 1
+		for item in info:
+			if isInfo:
+				outstr = str(index) + '. ' + item['title'] + '\n' + item['info'] + '\n'
+			else:
+				outstr = str(index) + '. ' + item['title'] + '\n'
+			f.write(outstr)
+			index+=1
+		f.write('\n')
+	print('The file info on PlayList is [OK].')
+
+def main():
 	# test
 	#url = 'https://www.youtube.com/watch?v=V3h2iq2mylI&list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT&index=2'
 	#url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
-	#folder = '/home/mikl/003/'
-	# print(getTitle(url))
-	#downloadVideo(url, folder)
-	#downloadPlayList(url, folder)
+	#folder = './'
+	#plfile = './playlist-test.txt'
+	#savePlayList(url, plfile, False)
+	#saveInfoPlayList(url, plfile, False)
+	#saveURLPlayList(url, plfile, True)
+	'''
+	if 'playlist' in url:
+		downloadPlayList(url, folder)
+	else:
+		downloadVideo(url, folder)
+	'''
 
 if __name__ == '__main__':
     main()
