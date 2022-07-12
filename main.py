@@ -118,6 +118,16 @@ if __name__ == '__main__':
     main()
 
 '''
+In this method you can download the available highest resolution video.
+С помощью этого метода вы можете загрузить доступное видео с самым высоким разрешением.
+
+video = YouTube('mylink')
+highresvid = video.streams.get_highest_resolution()
+highresvid.download('location')
+
+
+
+
 def downloadYouTube(URLLink: str, yourPath: str, fName: str, quality: str):
 	global video_size
 	yt = pytube.YouTube(URLLink, on_progress_callback=on_progress)
