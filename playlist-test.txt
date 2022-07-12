@@ -1,25 +1,10 @@
 1. Уроки Kivy .0. Демка проекта
-(1/7,720p)
 2. Уроки Kivy .1. Установка Kivy и сборка apk
-(2/7,720p)
 3. Уроки Kivy .2. Базовое приложение и Layout.ы
-(3/7,720p)
 4. Уроки Kivy .3. Размеры виджетов и позиционирование
-(4/7,720p)
 5. Уроки Kivy .4. Обработка событий
-(5/7,720p)
 6. Уроки Kivy .5. Создание приложения
-(6/7,720p)
 7. Уроки Kivy .6. Использование KivyMD
-(7/7,720p)
-
-https://www.youtube.com/watch?v=V3h2iq2mylI
-https://www.youtube.com/watch?v=IzKJgpJrrQU
-https://www.youtube.com/watch?v=4-NbrENn-Uk
-https://www.youtube.com/watch?v=YDKodGyoq1E
-https://www.youtube.com/watch?v=0eJ-e6iX5tU
-https://www.youtube.com/watch?v=RFvkGeKCCn4
-https://www.youtube.com/watch?v=BiDVQbJRlq4
 
 https://www.youtube.com/watch?v=V3h2iq2mylI
 https://www.youtube.com/watch?v=IzKJgpJrrQU
@@ -44,6 +29,14 @@ https://www.youtube.com/watch?v=BiDVQbJRlq4
 7. Уроки Kivy .6. Использование KivyMD
 (7/7,720p)
 
+https://www.youtube.com/watch?v=V3h2iq2mylI
+https://www.youtube.com/watch?v=IzKJgpJrrQU
+https://www.youtube.com/watch?v=4-NbrENn-Uk
+https://www.youtube.com/watch?v=YDKodGyoq1E
+https://www.youtube.com/watch?v=0eJ-e6iX5tU
+https://www.youtube.com/watch?v=RFvkGeKCCn4
+https://www.youtube.com/watch?v=BiDVQbJRlq4
+
 1. Уроки Kivy .0. Демка проекта
 2. Уроки Kivy .1. Установка Kivy и сборка apk
 3. Уроки Kivy .2. Базовое приложение и Layout.ы
@@ -51,6 +44,29 @@ https://www.youtube.com/watch?v=BiDVQbJRlq4
 5. Уроки Kivy .4. Обработка событий
 6. Уроки Kivy .5. Создание приложения
 7. Уроки Kivy .6. Использование KivyMD
+
+1. Уроки Kivy .0. Демка проекта
+(1/7,720p)
+2. Уроки Kivy .1. Установка Kivy и сборка apk
+(2/7,720p)
+3. Уроки Kivy .2. Базовое приложение и Layout.ы
+(3/7,720p)
+4. Уроки Kivy .3. Размеры виджетов и позиционирование
+(4/7,720p)
+5. Уроки Kivy .4. Обработка событий
+(5/7,720p)
+6. Уроки Kivy .5. Создание приложения
+(6/7,720p)
+7. Уроки Kivy .6. Использование KivyMD
+(7/7,720p)
+
+https://www.youtube.com/watch?v=V3h2iq2mylI
+https://www.youtube.com/watch?v=IzKJgpJrrQU
+https://www.youtube.com/watch?v=4-NbrENn-Uk
+https://www.youtube.com/watch?v=YDKodGyoq1E
+https://www.youtube.com/watch?v=0eJ-e6iX5tU
+https://www.youtube.com/watch?v=RFvkGeKCCn4
+https://www.youtube.com/watch?v=BiDVQbJRlq4
 
 1. https://www.youtube.com/watch?v=V3h2iq2mylI
 2. https://www.youtube.com/watch?v=IzKJgpJrrQU

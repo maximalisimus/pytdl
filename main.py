@@ -87,14 +87,23 @@ def getPlayList(link: str):
 		videoList.append(url)
 	return counter, videoList[:]
 
+def checkPath(onPath: str):
+	downloadpath = str(pathlib.Path(onPath).resolve())
+	if not pathlib.Path(downloadpath).exists():
+		pathlib.Path(downloadpath).mkdir(parents=True, exist_ok=True)
+	return downloadpath
+
+def checkPathText(TextFile: str):
+	path_parent = str(pathlib.Path(TextFile).parent.resolve())
+	if not pathlib.Path(path_parent).exists():
+		checkPath(path_parent)
+
 def downloadPlayList(link: str, inPath: str):
 	global isVideoCount
 	global onVideo
 	global Quality
 	global video_url
-	download_path = str(pathlib.Path(inPath).resolve())
-	if not pathlib.Path(download_path).exists():
-		pathlib.Path(download_path).mkdir(parents=True, exist_ok=True)
+	download_path = checkPath(inPath)
 	video_url.clear()
 	all_count, video_url = getPlayList(link)
 	print(f"Number of videos in playlist: {all_count}")
@@ -112,9 +121,7 @@ def downloadPlayList(link: str, inPath: str):
 
 def downloadVideo(link: str, inPath: str):
 	global onVideo
-	download_path = str(pathlib.Path(inPath).resolve())
-	if not pathlib.Path(download_path).exists():
-		pathlib.Path(download_path).mkdir(parents=True, exist_ok=True)
+	download_path = checkPath(inPath)
 	fname = getTitle(link)
 	onVideo.clear()
 	onVideo+=[fname]
@@ -141,9 +148,22 @@ def getVideoInfo(link: str) -> list:
 	print('Get info [OK].')
 	return videoList[:]
 
-def savePlayList(link: str, textFile: str, isInfo: bool = True):
-	info = getVideoInfo(link)
+def getVideoOne(link: str) -> list:
+	global isVideoCount
+	global Quality
+	videoList = []
+	print(f"Get info: {link} (1/1)")
+	fname = getClearTitle(link)
+	isVideoCount = f"(1/1,{Quality})"
+	print(f"Info: {fname} ({Quality})")
+	videoList.append({'info': isVideoCount, 'title': fname, 'url': link})
+	print('Get info [OK].')
+	return videoList[:]
+
+def saveOneAllInfo(link: str, textFile: str, isInfo: bool = True):
+	info = getVideoOne(link)
 	print("The file is write info on PlayList. Please, wait.")
+	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
 		index = 1
 		for item in info:
@@ -162,11 +182,46 @@ def savePlayList(link: str, textFile: str, isInfo: bool = True):
 		f.write('\n')
 	print('The file info on PlayList is [OK].')
 
+def savePlayList(link: str, textFile: str, isInfo: bool = True):
+	info = getVideoInfo(link)
+	print("The file is write info on PlayList. Please, wait.")
+	checkPathText(textFile)
+	with open(textFile, 'a+') as f:
+		index = 1
+		for item in info:
+			if isInfo:
+				outstr = str(index) + '. ' + item['title'] + '\n' + item['info'] + '\n'
+			else:
+				outstr = str(index) + '. ' + item['title'] + '\n'
+			f.write(outstr)
+			index+=1
+		f.write('\n')
+		index = 1
+		for item in info:
+			outstr = item['url'] + '\n'
+			f.write(outstr)
+			index+=1
+		f.write('\n')
+	print('The file info on PlayList is [OK].')
+
+def saveURLVideo(link: str, textFile: str, isIndex: bool = False):
+	print("The file is write info on PlayList. Please, wait.")
+	checkPathText(textFile)
+	with open(textFile, 'a+') as f:
+		if isIndex:
+			outstr ='1. ' + item + '\n'
+		else:
+			outstr = item + '\n'
+		f.write(outstr)
+		f.write('\n')
+	print('The file info on PlayList is [OK].')
+
 def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
 	global video_url
 	video_url.clear()
 	_, video_url = getPlayList(link)
 	print("The file is write info on PlayList. Please, wait.")
+	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
 		count = 1
 		for item in video_url:
@@ -179,9 +234,27 @@ def saveURLPlayList(link: str, textFile: str, isIndex: bool = False):
 		f.write('\n')
 	print('The file info on PlayList is [OK].')
 
+def saveOneInfo(link: str, textFile: str, isInfo: bool = True):
+	info = getVideoInfo(link)
+	print("The file is write info on PlayList. Please, wait.")
+	checkPathText(textFile)
+	with open(textFile, 'a+') as f:
+		index = 1
+		for item in info:
+			if isInfo:
+				outstr = str(index) + '. ' + item['title'] + '\n' + item['info'] + '\n'
+			else:
+				outstr = str(index) + '. ' + item['title'] + '\n'
+			f.write(outstr)
+			index+=1
+		f.write('\n')
+	print('The file info on PlayList is [OK].')
+	# saveInfoPlayList
+
 def saveInfoPlayList(link: str, textFile: str, isInfo: bool = True):
 	info = getVideoInfo(link)
 	print("The file is write info on PlayList. Please, wait.")
+	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
 		index = 1
 		for item in info:
@@ -201,13 +274,16 @@ def main():
 	#folder = './'
 	#plfile = './playlist-test.txt'
 	#savePlayList(url, plfile, False)
+	#savePlayList(url, plfile, True)
 	#saveInfoPlayList(url, plfile, False)
+	#saveInfoPlayList(url, plfile, True)
+	#saveURLPlayList(url, plfile, False)
 	#saveURLPlayList(url, plfile, True)
 	'''
 	if 'playlist' in url:
-		downloadPlayList(url, folder)
+		#downloadPlayList(url, folder)
 	else:
-		downloadVideo(url, folder)
+		#downloadVideo(url, folder)
 	'''
 
 if __name__ == '__main__':
