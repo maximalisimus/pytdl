@@ -125,6 +125,11 @@ video = YouTube('mylink')
 highresvid = video.streams.get_highest_resolution()
 highresvid.download('location')
 
+from pytube import YouTube
+yt = YouTube("https://www.youtube.com/watch?t=27&v=RjLH2vE5rpk")
+print(yt.streams.get_highest_resolution().resolution)
+Выход:
+360p
 
 
 
