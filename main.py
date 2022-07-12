@@ -284,7 +284,10 @@ def saveOneInfo(link: str, textFile: str, isInfo: bool = True):
 	# saveInfoPlayList
 
 def saveInfoPlayList(link: str, textFile: str, isInfo: bool = True):
-	info = getVideoOne(link)
+	if link != '':
+		info = getVideoInfo(link)
+	else:
+		info = getVideoLIST(link)
 	print("The file is write info on PlayList. Please, wait.")
 	checkPathText(textFile)
 	with open(textFile, 'a+') as f:
@@ -305,6 +308,8 @@ def main():
 	#url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
 	#folder = '/home/mikl/003/'
 	#plfile = './playlist-test.txt'
+	#playlist_text = 'playlist.txt'
+	#readURLTextFile(playlist_text)
 	'''
 	print('savePlayList variant-1')
 	savePlayList(url, plfile, False)
@@ -332,8 +337,6 @@ def main():
 	print('saveURLVideo variant-2')
 	saveURLVideo(url, plfile, True)
 	'''
-	#playlist_text = 'playlist.txt'
-	#readURLTextFile(playlist_text)
 	#downloadPlayList('', folder)
 	'''
 	if 'playlist' in url:
