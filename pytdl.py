@@ -6,6 +6,7 @@ import pathlib
 import pytube
 
 class Files:
+	''' Работа с файлами '''
 	
 	@staticmethod
 	def getRealPath(pathname):
@@ -40,18 +41,21 @@ class Files:
 		return re.sub(pattern,repl,outname).strip()
 
 class PyTDL(object):
-	"""pytube control class"""
+	"""	pytube control class
+		
+		fileLogs - Лог ошибок
+		
+		Quality = 240p, 360p, 480p, 720p, 1024p ....
+		isVideoCount = "1/5 720p" к каждому видео
+		onVideo - Информация о текущем видео в случае выведения в лог ошибок
+		video_url - Получение всех ссылок плейлиста, в т.ч. из файла. 
+	"""
 	
-	# Лог ошибок
 	fileLogs = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 	
-	# Quality = 240p, 360p, 480p, 720p, 1024p ....
 	Quality = ''
-	# isVideoCount = "1/5 720p" к каждому видео
 	isVideoCount = ''
-	# onVideo - Информация о текущем видео в случае выведения в лог ошибок
 	onVideo = []
-	# video_url - Получение всех ссылок плейлиста, в т.ч. из файла. 
 	video_url = []
 
 	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
@@ -94,4 +98,6 @@ class PyTDL(object):
 	
 
 if __name__ == '__main__':
+	# print(PyTDL.__doc__)
+	# print(PyTDL.__init__.__doc__)
 	pass
