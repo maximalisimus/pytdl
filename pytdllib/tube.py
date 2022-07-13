@@ -1,3 +1,4 @@
+import pathlib
 from . import files
 
 '''
@@ -33,7 +34,7 @@ class Tube(object):
 		video_url - Получение всех ссылок плейлиста, в т.ч. из файла. 
 	"""
 	
-	fileLogs = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
+	fileLogs = Files.getLogFile()
 	
 	Quality = ''
 	isVideoCount = ''
@@ -61,16 +62,16 @@ class Tube(object):
 		self._url = link
 		self._isPlayList = isPlayList
 		if loadDir == '':
-			self._loadDir = str(pathlib.Path(pathlib.Path.cwd()).resolve())
+			self._loadDir = Files.getCWDPath()
 		else:
 			self._loadDir = Files.checkPath(loadDir)
 		if playListFile == '':
-			self._plFile = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("playlist.txt"))
+			self._plFile = Files.getCWDJoinPath("playlist.txt")
 		else:
 			if Files.checkPathText(playListFile):
 				self._plFile = playListFile
 			else:
-				self._plFile = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("playlist.txt"))
+				self._plFile = Files.getCWDJoinPath("playlist.txt")
 		self._isSaveInfo = isSaveInfo
 		self._isSaveURL = isSaveURL
 		self._isSaveIndex = isSaveIndex

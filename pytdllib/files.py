@@ -8,6 +8,43 @@ class Files:
 	def getRealPath(pathname):
 		''' Получение полной директори '''
 		return str(pathlib.Path(pathname).resolve())
+	
+	@staticmethod
+	def getCWDPath():
+		''' Получение текущей директории '''
+		return str(pathlib.Path(pathlib.Path.cwd()).resolve())
+	
+	@staticmethod
+	def getCWDJoinPath(onFiles: str):
+		''' Присоединить к текущей директории файл '''
+		return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath(onFiles))
+	
+	@staticmethod
+	def getJoinPath(folder: str, value: str):
+		''' Присоединить к существующей директории другую или имя файла '''
+		real_path = Files.checkRealPath(folder)
+		return str(pathlib.Path(real_path).resolve().joinpath(value))
+
+	@staticmethod
+	def checkRealPath(folder: str):
+		''' Найти существовующую директорию, возможно одну из родительской '''
+		real_path = Files.getRealPath(folder)
+		if pathlib.Path(real_path).exists():
+			return real_path
+		else:
+			real_path = str(pathlib.Path(folder).parent.resolve())
+			return Files.checkRealPath(real_path)
+	
+	@staticmethod
+	def getLogFile(logFile: str = ''):
+		''' Лог файл ошибок '''
+		if logFile == '':
+			return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
+		else:
+			if Files.checkPathText(logFile):
+				return logFile
+			else:
+				return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 
 	@staticmethod
 	def checkPath(onPath: str):
