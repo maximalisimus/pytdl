@@ -344,6 +344,11 @@ def main():
 	#plfile = './playlist-test2.txt'
 	#playlist_text = 'playlist.txt'
 	#readURLTextFile(playlist_text)
+	#
+	# URL Error. Только для спонсоров. Не скачивает 5,7,10,13,14,17,19,23,25,27,30,32,35,38
+	# url = 'https://www.youtube.com/playlist?list=PLQAt0m1f9OHvyjJNjZK_unnLwMOXPTja8'
+	# url = 'https://www.youtube.com/watch?v=Gnt7abcf4_M&list=PLQAt0m1f9OHvyjJNjZK_unnLwMOXPTja8&index=6'
+	#
 	'''
 	print('savePlayList variant-1')
 	savePlayList('', plfile, False)
