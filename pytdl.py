@@ -9,10 +9,12 @@ class Files:
 	
 	@staticmethod
 	def getRealPath(pathname):
+		''' Получение полной директори '''
 		return str(pathlib.Path(pathname).resolve())
 
 	@staticmethod
 	def checkPath(onPath: str):
+		''' Проверка наличия директори и при отстутствии её создание '''
 		downloadpath = Files.getRealPath(onPath)
 		if not pathlib.Path(downloadpath).exists():
 			pathlib.Path(downloadpath).mkdir(parents=True, exist_ok=True)
@@ -20,6 +22,7 @@ class Files:
 	
 	@staticmethod
 	def checkPathText(TextFile: str):
+		''' Проверка наличия родительской директории '''
 		path_parent = str(pathlib.Path(TextFile).parent.resolve())
 		if not pathlib.Path(path_parent).exists():
 			return False
@@ -28,6 +31,7 @@ class Files:
 
 	@staticmethod
 	def filterName(onNames: str) -> str:
+		''' Фильтрация недопустимых символов имен файлов для разных ОС '''
 		outname = str(onNames).replace('|', '.').replace('%', '.').replace(':', '.').replace('"', '.').replace("'", ".").replace('<', '.').replace('>', '.')\
 		.replace('[', '.').replace(']', '.').replace('{', '.').replace('}', '.').replace('#', '.').replace('$', '.').replace('?', '.')\
 		.replace('`', '.').replace('~', '.').replace('@', '.').replace('!', '.').replace('&', '.').replace('^', '.').replace('*', '.')
