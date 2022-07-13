@@ -375,6 +375,18 @@ def main():
 	else:
 		#downloadVideo(url, folder)
 	'''
+	'''
+		url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
+		folder = '/home/mikl/003/'
+		yt = pytube.Playlist(url)
+		index = 1
+		for item in yt.videos:
+			item.register_on_progress_callback(on_progress)
+			fname = str(index) + '.' + filterName(item.title)
+			dnwld = item.streams.get_highest_resolution()
+			dnwld.download(output_path=folder, filename=fname)
+			index+=1
+	'''
 
 if __name__ == '__main__':
     main()
