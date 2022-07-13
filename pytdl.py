@@ -36,7 +36,7 @@ class PyTDL(object):
 	video_url = []
 
 	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
-				isPlayList: bool = False, SaveInfo: bool = False, SaveURL: bool = False, SaveIndex: bool = False, SaveName: bool = False):
+				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, isSaveIndex: bool = False, isSaveName: bool = False):
 		self.url = link
 		self.isPlayList = isPlayList
 		if loadDir == '':
@@ -50,10 +50,10 @@ class PyTDL(object):
 				self.plFile = playListFile
 			else:
 				self.plFile = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("playlist.txt"))
-		self.isSaveInfo = SaveInfo
-		self.isSaveURL = SaveURL
-		self.isSaveIndex = SaveIndex
-		self.isSaveName = SaveName
+		self.isSaveInfo = isSaveInfo
+		self.isSaveURL = isSaveURL
+		self.isSaveIndex = isSaveIndex
+		self.isSaveName = isSaveName
 
 	
 
