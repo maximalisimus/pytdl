@@ -47,10 +47,10 @@ def on_progress(stream, chunk, bytes_remaining):
 		print(f"{percentage_of_completion}%\t{isVideoCount}")
 	else:
 		print(f"Download video {onVideo[0]} ERROR!")
-		with open(fileLogs, 'a') as f:
-			f.write(onVideo[0])
-			f.write(onVideo[1])
-			f.write(onVideo[2])
+		with open(fileLogs, 'a+') as f:
+			f.write(f"{onVideo[0]}\n")
+			f.write(f"{onVideo[1]}\n")
+			f.write(f"{onVideo[2]}\n")
 
 def filterName(innames: str) -> str:
 	outname = str(innames).replace('|', '.').replace('%', '.').replace(':', '.').replace('"', '.').replace("'", ".").replace('<', '.').replace('>', '.')\
