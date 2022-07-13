@@ -34,6 +34,12 @@ fileLogs = str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 
 video_url = []
 
+def on_progress2(stream, chunk, bytes_remaining):
+	total_size = stream.filesize
+	bytes_downloaded = total_size - bytes_remaining
+	percentage_of_completion = round(bytes_downloaded / total_size * 100)
+	print(percentage_of_completion)
+
 def on_progress(stream, chunk, bytes_remaining):
 	global isVideoCount
 	global onVideo
@@ -55,7 +61,8 @@ def on_progress(stream, chunk, bytes_remaining):
 def filterName(innames: str) -> str:
 	outname = str(innames).replace('|', '.').replace('%', '.').replace(':', '.').replace('"', '.').replace("'", ".").replace('<', '.').replace('>', '.')\
 	.replace('[', '.').replace(']', '.').replace('{', '.').replace('}', '.').replace('#', '.').replace('$', '.').replace('?', '.')\
-	.replace('`', '.').replace('~', '.').replace('@', '.').replace('!', '.').replace('&', '.').replace('^', '.').replace('*', '.')
+	.replace('`', '.').replace('~', '.').replace('@', '.').replace('!', '.').replace('&', '.').replace('^', '.').replace('*', '.').replace('/','.')\
+	.replace('\\','.')
 	pattern = r'(.)\1+'
 	repl = r'\1'
 	return re.sub(pattern,repl,outname).strip()
@@ -65,6 +72,9 @@ def getTitle(urlFile: str) -> str:
 	yt = pytube.YouTube(urlFile)
 	Quality = yt.streams.get_highest_resolution().resolution
 	outname = filterName(yt.title) + '_' + Quality + '.mp4'
+	pattern = r'(.)\1+'
+	repl = r'\1'
+	outname = re.sub(pattern,repl,outname).strip()
 	return outname
 
 def getClearTitle(urlFile: str) -> str:
@@ -322,7 +332,15 @@ def main():
 	# test
 	#url = 'https://www.youtube.com/watch?v=V3h2iq2mylI&list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT&index=2'
 	#url = 'https://www.youtube.com/playlist?list=PLlWXhlUMyoobAlP3mZ0_uuJagsDSg_5YT'
-	#folder = '/home/mikl/003/'
+	#url = 'https://www.youtube.com/playlist?list=PLA0M1Bcd0w8zPwP7t-FgwONhZOHt9rz9E'
+	#folder = '/home/mikl/003/python-oop/'
+	#playlist_text = '/home/mikl/003/playlist.txt'
+	#readURLTextFile(playlist_text)
+	#downloadPlayList('', folder)
+	#saveURLPlayList(url, playlist_text, False)
+	#playlist_text = '/home/mikl/003/playlist2.txt'
+	#saveInfoPlayList(url, playlist_text, False)
+	#downloadPlayList(url, folder)
 	#plfile = './playlist-test2.txt'
 	#playlist_text = 'playlist.txt'
 	#readURLTextFile(playlist_text)
