@@ -41,8 +41,9 @@ class Files:
 		return re.sub(pattern,repl,outname).strip()
 
 class PyTDL(object):
-	"""	pytube control class
-		
+	"""	pytube control class """
+	
+	"""
 		fileLogs - Лог ошибок
 		
 		Quality = 240p, 360p, 480p, 720p, 1024p ....
