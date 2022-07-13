@@ -47,7 +47,7 @@ class PyTDL(object):
 	isVideoCount = ''
 	# onVideo - Информация о текущем видео в случае выведения в лог ошибок
 	onVideo = []
-	# video_url - Получение всех ссылок плейлиста. 
+	# video_url - Получение всех ссылок плейлиста, в т.ч. из файла. 
 	video_url = []
 
 	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
