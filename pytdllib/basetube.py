@@ -2,15 +2,16 @@ import pathlib
 from filesdir import Files
 
 class BaseTube(object):
-	"""	Tube control class """
+	"""	Base Tube control class """
 	
-	def __init__(self, link, loadDir = '', playListFile = '', 
+	def __init__(self, link = '', loadDir = '', playListFile = '', 
 				isPlayList = False, isSaveInfo = False, isSaveURL = False, 
 				isSaveIndex = False, isSaveName = False,
-				isSaveQuality = True, isCli = True):
+				isSaveQuality = True, isCli = True, fileLogs = ''):
 		'''
-			__fileLogs - Лог ошибок
-		
+			__FileLogs - Лог ошибок
+			
+			При каждой загрузке или получения информации об одном или нескольких видео автоматически меняются независимо от пользователя.
 			Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео при скачивании или сохранении информации
 			isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
 			onVideo - Информация о текущем видео в случае выведения в лог ошибок
@@ -29,7 +30,7 @@ class BaseTube(object):
 			__isSaveQuality - Флаг сохранения разрешения видео при наименовании файлов плейлиста или одного видео.
 			__isCli - Флаг вывода сообщений консоли.
 		'''
-		self.__fileLogs = Files.getLogFile()
+		self.__FileLogs = Files.getLogFile(fileLogs)
 		
 		self.Quality = ''
 		self.isVideoCount = ''
@@ -87,8 +88,8 @@ class BaseTube(object):
 			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@property
-	def fileLogs(self):
-		return self.__fileLogs
+	def FileLogs(self):
+		return self.__FileLogs
 
 	@property
 	def url(self):
@@ -99,7 +100,7 @@ class BaseTube(object):
 		return self.__isPlayList
 
 	@property
-	def loadDir(self):
+	def LoadDir(self):
 		return self.__loadDir
 
 	@property
@@ -130,16 +131,16 @@ class BaseTube(object):
 	def isCli(self):
 		return self.__isCli
 
-	@fileLogs.setter
-	def fileLogs(self, value):
+	@FileLogs.setter
+	def FileLogs(self, value):
 		if type(value) == str:
-			self.__fileLogs = Files.getLogFile(value)
+			self.__FileLogs = Files.getLogFile(value)
 		else:
 			raise TypeError('Не верный тип данных! Введите строку!')
 	
-	@fileLogs.deleter
-	def fileLogs(self):
-		del self.__fileLogs
+	@FileLogs.deleter
+	def FileLogs(self):
+		del self.__FileLogs
 
 	@url.setter
 	def url(self, value):
@@ -163,15 +164,15 @@ class BaseTube(object):
 	def isPlayList(self):
 		del self.__isPlayList
 	
-	@loadDirx.setter
-	def loadDirx(self, value):
+	@LoadDir.setter
+	def LoadDir(self, value):
 		if type(value) == str:
 			self.__loadDir = Files.checkPath(value)
 		else:
 			raise TypeError('Не верный тип данных! Введите строку!')
 
-	@loadDirx.deleter
-	def loadDir(self):
+	@LoadDir.deleter
+	def LoadDir(self):
 		del self.__loadDir
 
 	@plFile.setter
