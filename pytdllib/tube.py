@@ -3,28 +3,19 @@ from . import files
 
 class Tube(object):
 	"""	Tube control class """
-
-	"""
-		fileLogs - Лог ошибок
-		
-		_Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео
-		_isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
-		_onVideo - Информация о текущем видео в случае выведения в лог ошибок
-		_video_url - Загрузка ссылок из файла. 
-	"""
 	
-	fileLogs = Files.getLogFile()
-	
-	_Quality = ''
-	_isVideoCount = ''
-	_onVideo = []
-	_video_url = []
-
 	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
 				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
 				isSaveIndex: bool = False, isSaveName: bool = False,
 				isSaveQuality: bool = True, isCli: bool = True):
 		'''
+			_fileLogs - Лог ошибок
+		
+			_Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео при скачивании или сохранении информации
+			_isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
+			_onVideo - Информация о текущем видео в случае выведения в лог ошибок
+			_video_url - Загрузка ссылок из файла. 
+			
 			self.url - текущая ссылка пользователя
 			self.isPlayList - Флаг плейлиста
 			self.loadDir - Директория для скачивания. При наличии, автоматически проверяется на существование и при отсутствии - создаётся
@@ -38,6 +29,12 @@ class Tube(object):
 			self.isSaveQuality - Флаг сохранения разрешения видео при наименовании файлов плейлиста или одного видео.
 			self.isCli - Флаг вывода сообщений консоли.
 		'''
+		self._fileLogs = Files.getLogFile()
+		self._Quality = ''
+		self._isVideoCount = ''
+		self._onVideo = []
+		self._video_url = []
+		
 		self._url = link
 		self._isPlayList = isPlayList
 		'''

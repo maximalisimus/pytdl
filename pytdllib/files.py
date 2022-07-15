@@ -42,7 +42,7 @@ class Files:
 			return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 		else:
 			if Files.checkPathText(logFile):
-				return logFile
+				return getRealPath(logFile)
 			else:
 				return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 
