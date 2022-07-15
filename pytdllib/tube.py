@@ -28,18 +28,18 @@ class Tube(object):
 	"""
 		fileLogs - Лог ошибок
 		
-		Quality = 240p, 360p, 480p, 720p, 1024p ....
-		isVideoCount = "1/5 720p" к каждому видео
-		onVideo - Информация о текущем видео в случае выведения в лог ошибок
-		video_url - Получение всех ссылок плейлиста, в т.ч. из файла. 
+		_Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео
+		_isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
+		_onVideo - Информация о текущем видео в случае выведения в лог ошибок
+		_video_url - Загрузка ссылок из файла. 
 	"""
 	
 	fileLogs = Files.getLogFile()
 	
-	Quality = ''
-	isVideoCount = ''
-	onVideo = []
-	video_url = []
+	_Quality = ''
+	_isVideoCount = ''
+	_onVideo = []
+	_video_url = []
 
 	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
 				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
@@ -61,6 +61,13 @@ class Tube(object):
 		'''
 		self._url = link
 		self._isPlayList = isPlayList
+		'''
+		if (self._url != ''):
+			if self._isPlayList:
+				self._YouTube = pytube.Playlist(self._url)
+			else:
+				self._YouTube = pytube.YouTube(self._url)
+		'''
 		if loadDir == '':
 			self._loadDir = Files.getCWDPath()
 		else:
@@ -78,3 +85,43 @@ class Tube(object):
 		self._isSaveName = isSaveName
 		self._isSaveQuality = isSaveQuality
 		self._isCli = isCli
+
+	@property
+    def url(self) -> str:
+		return self._url
+
+	@property
+    def isPlayList(self) -> bool:
+		return self._isPlayList
+
+	@property
+    def loadDir(self) -> str:
+		return self._loadDir
+
+	@property
+    def plFile(self) -> str:
+		return self._plFile
+
+	@property
+    def isSaveInfo(self) -> bool:
+		return self._isSaveInfo
+
+	@property
+    def isSaveURL(self) -> bool:
+		return self._isSaveURL
+
+	@property
+    def isSaveIndex(self) -> bool:
+		return self._isSaveIndex
+
+	@property
+    def isSaveName(self) -> bool:
+		return self._isSaveName
+
+	@property
+    def isSaveQuality(self) -> bool:
+		return self._isSaveQuality
+
+	@property
+    def isCli(self) -> bool:
+		return self._isCli
