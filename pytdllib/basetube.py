@@ -1,197 +1,253 @@
 import pathlib
-from . import files
+from filesdir import Files
 
 class BaseTube(object):
 	"""	Tube control class """
 	
-	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
-				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
-				isSaveIndex: bool = False, isSaveName: bool = False,
-				isSaveQuality: bool = True, isCli: bool = True):
+	def __init__(self, link, loadDir = '', playListFile = '', 
+				isPlayList = False, isSaveInfo = False, isSaveURL = False, 
+				isSaveIndex = False, isSaveName = False,
+				isSaveQuality = True, isCli = True):
 		'''
-			_fileLogs - Лог ошибок
+			__fileLogs - Лог ошибок
 		
-			_Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео при скачивании или сохранении информации
-			_isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
-			_onVideo - Информация о текущем видео в случае выведения в лог ошибок
-			_video_url - Загрузка ссылок из файла. 
+			Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео при скачивании или сохранении информации
+			isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
+			onVideo - Информация о текущем видео в случае выведения в лог ошибок
+			video_url - Загрузка ссылок из файла. 
 			
-			self.url - текущая ссылка пользователя
-			self.isPlayList - Флаг плейлиста
-			self.loadDir - Директория для скачивания. При наличии, автоматически проверяется на существование и при отсутствии - создаётся
-			self.plFile - Файл плейлиста. При наличии, проверяется директория, в которой он располагается на существование. 
+			__url - текущая ссылка пользователя
+			__isPlayList - Флаг плейлиста
+			__loadDir - Директория для скачивания. При наличии, автоматически проверяется на существование и при отсутствии - создаётся
+			__plFile - Файл плейлиста. При наличии, проверяется директория, в которой он располагается на существование. 
 							При отсутствии директории родителя задаётся значение по умолчанию.
-			self.isSaveInfo - Флаг сохранении всей информации о плейлисте или одном видео.
-			self.isSaveURL - Флаг сохранения ссылок плейлиста или одного видео.
-			self.isSaveIndex - Флаг сохранения индексации видео только при сохранении текстовой информации. 
+			__isSaveInfo - Флаг сохранении всей информации о плейлисте или одном видео.
+			__isSaveURL - Флаг сохранения ссылок плейлиста или одного видео.
+			__isSaveIndex - Флаг сохранения индексации видео только при сохранении текстовой информации. 
 							Индексация файлов плейлиста автоматическая и не изменяется во избежание конфликтов имён.
-			self.isSaveName - Флаг сохранения наименований видео плейлиста или одного видео.
-			self.isSaveQuality - Флаг сохранения разрешения видео при наименовании файлов плейлиста или одного видео.
-			self.isCli - Флаг вывода сообщений консоли.
+			__isSaveName - Флаг сохранения наименований видео плейлиста или одного видео.
+			__isSaveQuality - Флаг сохранения разрешения видео при наименовании файлов плейлиста или одного видео.
+			__isCli - Флаг вывода сообщений консоли.
 		'''
-		self._fileLogs = Files.getLogFile()
-		self._Quality = ''
-		self._isVideoCount = ''
-		self._onVideo = []
-		self._video_url = []
+		self.__fileLogs = Files.getLogFile()
 		
-		self._url = link
-		self._isPlayList = isPlayList
-		'''
-		if (self._url != ''):
-			if self._isPlayList:
-				self._YouTube = pytube.Playlist(self._url)
-			else:
-				self._YouTube = pytube.YouTube(self._url)
-		'''
-		if loadDir == '':
-			self._loadDir = Files.getCWDPath()
+		self.Quality = ''
+		self.isVideoCount = ''
+		self.onVideo = []
+		self.video_url = []
+		
+		if type(link) == str:
+			self.__url = link
 		else:
-			self._loadDir = Files.checkPath(loadDir)
-		if playListFile == '':
-			self._plFile = Files.getCWDJoinPath("playlist.txt")
+			raise TypeError('Не верный тип данных! Введите строку!')
+		if type(isPlayList) == bool:
+			self.__isPlayList = isPlayList
 		else:
-			if Files.checkPathText(playListFile):
-				self._plFile = playListFile
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+		if type(loadDir) == str:	
+			if loadDir == '':
+				self.__loadDir = Files.getCWDPath()
 			else:
-				self._plFile = Files.getCWDJoinPath("playlist.txt")
-		self._isSaveInfo = isSaveInfo
-		self._isSaveURL = isSaveURL
-		self._isSaveIndex = isSaveIndex
-		self._isSaveName = isSaveName
-		self._isSaveQuality = isSaveQuality
-		self._isCli = isCli
+				self.__loadDir = Files.checkPath(loadDir)
+		else:
+			raise TypeError('Не верный тип данных! Введите строку!')
+		if type(playListFile) == str:
+			if playListFile == '':
+				self.__plFile = Files.getCWDJoinPath("playlist.txt")
+			else:
+				if Files.checkPathParent(playListFile):
+					self.__plFile = playListFile
+				else:
+					self.__plFile = Files.getCWDJoinPath("playlist.txt")
+		else:
+			raise TypeError('Не верный тип данных! Введите строку!')
+		if type(isSaveInfo) == bool:
+			self.__isSaveInfo = isSaveInfo
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+		if type(isSaveURL) == bool:
+			self.__isSaveURL = isSaveURL
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+		if type(isSaveIndex) == bool:
+			self.__isSaveIndex = isSaveIndex
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+		if type(isSaveIndex) == bool:
+			self.__isSaveName = isSaveIndex
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+		if type(isSaveQuality) == bool:
+			self.__isSaveQuality = isSaveQuality
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+		if type(isCli) == bool:
+			self.__isCli = isCli
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@property
-	def fileLogs(self) -> str:
-		return self._fileLogs
+	def fileLogs(self):
+		return self.__fileLogs
 
 	@property
-	def url(self) -> str:
-		return self._url
+	def url(self):
+		return self.__url
 
 	@property
-	def isPlayList(self) -> bool:
-		return self._isPlayList
+	def isPlayList(self):
+		return self.__isPlayList
 
 	@property
-	def loadDir(self) -> str:
-		return self._loadDir
+	def loadDir(self):
+		return self.__loadDir
 
 	@property
-	def plFile(self) -> str:
-		return self._plFile
+	def plFile(self):
+		return self.__plFile
 
 	@property
-	def isSaveInfo(self) -> bool:
-		return self._isSaveInfo
+	def isSaveInfo(self):
+		return self.__isSaveInfo
 
 	@property
-	def isSaveURL(self) -> bool:
-		return self._isSaveURL
+	def isSaveURL(self):
+		return self.__isSaveURL
 
 	@property
-	def isSaveIndex(self) -> bool:
-		return self._isSaveIndex
+	def isSaveIndex(self):
+		return self.__isSaveIndex
 
 	@property
-	def isSaveName(self) -> bool:
-		return self._isSaveName
+	def isSaveName(self):
+		return self.__isSaveName
 
 	@property
-	def isSaveQuality(self) -> bool:
-		return self._isSaveQuality
+	def isSaveQuality(self):
+		return self.__isSaveQuality
 
 	@property
-	def isCli(self) -> bool:
-		return self._isCli
+	def isCli(self):
+		return self.__isCli
 
 	@fileLogs.setter
-	def fileLogs(self, value: str):
-		self._fileLogs = Files.getLogFile(value)
+	def fileLogs(self, value):
+		if type(value) == str:
+			self.__fileLogs = Files.getLogFile(value)
+		else:
+			raise TypeError('Не верный тип данных! Введите строку!')
 	
 	@fileLogs.deleter
 	def fileLogs(self):
-		del self._fileLogs
+		del self.__fileLogs
 
 	@url.setter
 	def url(self, value):
-		if value != '':
-			self._url = value
+		if type(value) == str:
+			self.__url = value
+		else:
+			raise TypeError('Не верный тип данных! Введите строку!')
 	
 	@url.deleter
 	def url(self):
-		del self._url
+		del self.__url
 
 	@isPlayList.setter
-	def isPlayList(self, value: bool):
-		self._isPlayList = value
+	def isPlayList(self, value):
+		if type(value) == bool:
+			self.__isPlayList = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isPlayList.deleter
 	def isPlayList(self):
-		del self._isPlayList
+		del self.__isPlayList
 	
 	@loadDirx.setter
-	def loadDirx(self, value: str):
-		self._loadDir = Files.checkPath(value)
+	def loadDirx(self, value):
+		if type(value) == str:
+			self.__loadDir = Files.checkPath(value)
+		else:
+			raise TypeError('Не верный тип данных! Введите строку!')
 
 	@loadDirx.deleter
 	def loadDir(self):
-		del self._loadDir
+		del self.__loadDir
 
 	@plFile.setter
-	def plFile(self, value: str):
-		if checkPathText(value):
-			self._plFile = value
+	def plFile(self, value):
+		if type(value) == str:
+			if checkPathParent(value):
+				self.__plFile = value
+		else:
+			raise TypeError('Не верный тип данных! Введите строку!')
 
 	@plFile.deleter
 	def plFile(self):
-		del self._plFile
+		del self.__plFile
 
 	@isSaveInfo.setter
-	def isSaveInfo(self, value: bool):
-		self._isSaveInfo = value
+	def isSaveInfo(self, value):
+		if type(value) == bool:
+			self.__isSaveInfo = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isSaveInfo.deleter
 	def isSaveInfo(self):
-		del self._isSaveInfo
+		del self.__isSaveInfo
 
 	@isSaveURL.setter
-	def isSaveURL(self, value: bool):
-		self._isSaveURL = value
+	def isSaveURL(self, value):
+		if type(value) == bool:
+			self.__isSaveURL = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isSaveURL.deleter
 	def isSaveURL(self):
-		del self._isSaveURL
+		del self.__isSaveURL
 	
 	@isSaveIndex.setter
-	def isSaveIndex(self, value: bool):
-		self._isSaveIndex = value
+	def isSaveIndex(self, value):
+		if type(value) == bool:
+			self.__isSaveIndex = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isSaveIndex.deleter
 	def isSaveIndex(self):
-		del self._isSaveIndex
+		del self.__isSaveIndex
 	
 	@isSaveName.setter
-	def isSaveName(self, value: bool):
-		self._isSaveName = value
+	def isSaveName(self, value):
+		if type(value) == bool:
+			self.__isSaveName = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isSaveName.deleter
 	def isSaveName(self):
-		del self._isSaveName
+		del self.__isSaveName
 	
 	@isSaveQuality.setter
-	def isSaveQuality(self, value: bool):
-		self._isSaveQuality = value
+	def isSaveQuality(self, value):
+		if type(value) == bool:
+			self.__isSaveQuality = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isSaveQuality.deleter
 	def isSaveQuality(self):
-		del self._isSaveQuality
+		del self.__isSaveQuality
 	
 	@isCli.setter
-	def isCli(self, value: bool):
-		self._isCli = value
+	def isCli(self, value):
+		if type(value) == bool:
+			self.__isCli = value
+		else:
+			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
 
 	@isCli.deleter
 	def isCli(self):
-		del self._isCli
+		del self.__isCli

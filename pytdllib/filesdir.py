@@ -55,9 +55,9 @@ class Files:
 		return downloadpath
 	
 	@staticmethod
-	def checkPathText(TextFile: str):
+	def checkPathParent(fileORDir: str):
 		''' Проверка наличия родительской директории '''
-		path_parent = str(pathlib.Path(TextFile).parent.resolve())
+		path_parent = str(pathlib.Path(fileORDir).parent.resolve())
 		if not pathlib.Path(path_parent).exists():
 			return False
 		else:

@@ -32,4 +32,6 @@ def main():
 	my.pole = 'my string'
 	my.display()
 
+class PyTDL(basetube):
+
 '''
