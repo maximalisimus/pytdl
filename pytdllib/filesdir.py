@@ -3,22 +3,22 @@ import re
 
 class Files:
 	''' Работа с файлами '''
-	
+
 	@staticmethod
 	def getRealPath(pathname):
 		''' Получение полной директори '''
 		return str(pathlib.Path(pathname).resolve())
-	
+
 	@staticmethod
 	def getCWDPath():
 		''' Получение текущей директории '''
 		return str(pathlib.Path(pathlib.Path.cwd()).resolve())
-	
+
 	@staticmethod
 	def getCWDJoinPath(onFiles: str):
 		''' Присоединить к текущей директории файл '''
 		return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath(onFiles))
-	
+
 	@staticmethod
 	def getJoinPath(folder: str, value: str):
 		''' Присоединить к существующей директории другую или имя файла '''
@@ -34,7 +34,7 @@ class Files:
 		else:
 			real_path = str(pathlib.Path(folder).parent.resolve())
 			return Files.checkRealPath(real_path)
-	
+
 	@staticmethod
 	def getLogFile(logFile: str = ''):
 		''' Лог файл ошибок '''
@@ -53,7 +53,7 @@ class Files:
 		if not pathlib.Path(downloadpath).exists():
 			pathlib.Path(downloadpath).mkdir(parents=True, exist_ok=True)
 		return downloadpath
-	
+
 	@staticmethod
 	def checkPathParent(fileORDir: str):
 		''' Проверка наличия родительской директории '''
@@ -72,7 +72,7 @@ class Files:
 		pattern = r'(.)\1+'
 		repl = r'\1'
 		return re.sub(pattern,repl,outname).strip()
-		
+
 '''
 
 def clear_name(docname,

@@ -3,7 +3,7 @@ from filesdir import Files
 
 class BaseTube(object):
 	"""	Base Tube control class """
-	
+
 	def __init__(self, link = '', loadDir = '', playListFile = '', 
 				isPlayList = False, isSaveInfo = False, isSaveURL = False, 
 				isSaveIndex = False, isSaveName = False,
@@ -137,7 +137,7 @@ class BaseTube(object):
 			self.__FileLogs = Files.getLogFile(value)
 		else:
 			raise TypeError('Не верный тип данных! Введите строку!')
-	
+
 	@FileLogs.deleter
 	def FileLogs(self):
 		del self.__FileLogs
@@ -148,7 +148,7 @@ class BaseTube(object):
 			self.__url = value
 		else:
 			raise TypeError('Не верный тип данных! Введите строку!')
-	
+
 	@url.deleter
 	def url(self):
 		del self.__url
@@ -163,7 +163,7 @@ class BaseTube(object):
 	@isPlayList.deleter
 	def isPlayList(self):
 		del self.__isPlayList
-	
+
 	@LoadDir.setter
 	def LoadDir(self, value):
 		if type(value) == str:
@@ -208,7 +208,7 @@ class BaseTube(object):
 	@isSaveURL.deleter
 	def isSaveURL(self):
 		del self.__isSaveURL
-	
+
 	@isSaveIndex.setter
 	def isSaveIndex(self, value):
 		if type(value) == bool:
@@ -219,7 +219,7 @@ class BaseTube(object):
 	@isSaveIndex.deleter
 	def isSaveIndex(self):
 		del self.__isSaveIndex
-	
+
 	@isSaveName.setter
 	def isSaveName(self, value):
 		if type(value) == bool:
@@ -230,7 +230,7 @@ class BaseTube(object):
 	@isSaveName.deleter
 	def isSaveName(self):
 		del self.__isSaveName
-	
+
 	@isSaveQuality.setter
 	def isSaveQuality(self, value):
 		if type(value) == bool:
@@ -241,7 +241,7 @@ class BaseTube(object):
 	@isSaveQuality.deleter
 	def isSaveQuality(self):
 		del self.__isSaveQuality
-	
+
 	@isCli.setter
 	def isCli(self, value):
 		if type(value) == bool:
