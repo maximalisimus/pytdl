@@ -63,6 +63,10 @@ class Tube(object):
 		self._isCli = isCli
 
 	@property
+	def fileLogs(self) -> str:
+		return self._fileLogs
+
+	@property
 	def url(self) -> str:
 		return self._url
 
@@ -101,6 +105,14 @@ class Tube(object):
 	@property
 	def isCli(self) -> bool:
 		return self._isCli
+
+	@fileLogs.setter
+	def fileLogs(self, value: str):
+		self._fileLogs = Files.getLogFile(value)
+	
+	@fileLogs.deleter
+	def fileLogs(self):
+		del self._fileLogs
 
 	@url.setter
 	def url(self, value):
