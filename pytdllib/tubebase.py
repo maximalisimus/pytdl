@@ -1,23 +1,35 @@
 
 '''
 
-class Geom:
-	name = 'Geom'
+class A(object):
+	
+	def __init__(self, pole):
+		self.__pole = pole
+	
+	@property
+	def pole(self):
+		return self.__pole
+	
+	@pole.setter
+	def pole(self, value):
+		self.__pole = value
 
-	def __init__(self, x1, y1, x2, y2):
-		print(f"инициализатор Geom для {self.__class__}")
-		self.__x1 = x1
-		self.__y1 = y1
-		self.__x2 = x2
-		self.__y2 = y2
+	@pole.deleter
+	def pole(self):
+		del self.__pole
 
-class Rect(Geom):
-	def __init__(self, x1, y1, x2, y2, fill='red'):
-		super().__init__(x1, y1, x2, y2)
-		self.__fill = fill
+class B(A):
+	
+	def __init__(self, pole):
+		super(B, self).__init__(pole)
+	
+	def display(self):
+		print(self.pole)
 
-class TubeBase(BaseTube):
-	def __init__(self):
-		super().__init__()
+def main():
+	my = B('stroka')
+	my.display()
+	my.pole = 'my string'
+	my.display()
 
 '''
