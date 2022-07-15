@@ -1,7 +1,7 @@
 import pathlib
 from . import files
 
-class Tube(object):
+class BaseTube(object):
 	"""	Tube control class """
 	
 	def __init__(self, link: str, loadDir: str = '', playListFile: str = '', 
