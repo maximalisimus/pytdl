@@ -12,6 +12,7 @@
 # Windows: PyQT5 PyQT5-sip PyQT6 PyQT6-sip
 #
 # nuitka3 hello.py
+# python -m nuitka --mingw64 main.py
 #
 # pyinstaller hello.py
 # --onefile — сборка в один файл, т.е. файлы .dll не пишутся.
