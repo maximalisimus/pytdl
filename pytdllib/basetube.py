@@ -6,7 +6,7 @@ class BaseTube(object):
 
 	def __init__(self, link = '', loadDir = '', playListFile = '', 
 				isPlayList = False, isSaveInfo = False, isSaveURL = False, 
-				isSaveIndex = False, isSaveName = False,
+				isSaveIndex = False, isSaveName = False, isNameUses = False,
 				isSaveQuality = True, isCli = True, fileLogs = ''):
 		'''
 			__FileLogs - Лог ошибок
@@ -16,6 +16,7 @@ class BaseTube(object):
 			isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
 			onVideo - Информация о текущем видео в случае выведения в лог ошибок
 			video_url - Загрузка ссылок из файла. 
+			onName - Наименования одного или всех видео.
 			
 			__url - текущая ссылка пользователя
 			__isPlayList - Флаг плейлиста
@@ -27,6 +28,7 @@ class BaseTube(object):
 			__isSaveIndex - Флаг сохранения индексации видео только при сохранении текстовой информации. 
 							Индексация файлов плейлиста автоматическая и не изменяется во избежание конфликтов имён.
 			__isSaveName - Флаг сохранения наименований видео плейлиста или одного видео.
+			__isNameUses - Флаг использования имен видео.
 			__isSaveQuality - Флаг сохранения разрешения видео при наименовании файлов плейлиста или одного видео.
 			__isCli - Флаг вывода сообщений консоли.
 		'''
@@ -36,22 +38,23 @@ class BaseTube(object):
 		self.isVideoCount = ''
 		self.onVideo = []
 		self.video_url = []
+		self.OnName = []
 		
 		if type(link) == str:
 			self.__url = link
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 		if type(isPlayList) == bool:
 			self.__isPlayList = isPlayList
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 		if type(loadDir) == str:	
 			if loadDir == '':
 				self.__loadDir = Files.getCWDPath()
 			else:
 				self.__loadDir = Files.checkPath(loadDir)
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 		if type(playListFile) == str:
 			if playListFile == '':
 				self.__plFile = Files.getCWDJoinPath("playlist.txt")
@@ -61,31 +64,35 @@ class BaseTube(object):
 				else:
 					self.__plFile = Files.getCWDJoinPath("playlist.txt")
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 		if type(isSaveInfo) == bool:
 			self.__isSaveInfo = isSaveInfo
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 		if type(isSaveURL) == bool:
 			self.__isSaveURL = isSaveURL
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 		if type(isSaveIndex) == bool:
 			self.__isSaveIndex = isSaveIndex
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
-		if type(isSaveIndex) == bool:
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
+		if type(isSaveName) == bool:
 			self.__isSaveName = isSaveIndex
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
+		if type(isNameUses) == bool:
+			self.__isNameUses = isNameUses
+		else:
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 		if type(isSaveQuality) == bool:
 			self.__isSaveQuality = isSaveQuality
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 		if type(isCli) == bool:
 			self.__isCli = isCli
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@property
 	def FileLogs(self):
@@ -124,6 +131,10 @@ class BaseTube(object):
 		return self.__isSaveName
 
 	@property
+	def isNameUses(self):
+		return self.__isNameUses
+
+	@property
 	def isSaveQuality(self):
 		return self.__isSaveQuality
 
@@ -136,7 +147,7 @@ class BaseTube(object):
 		if type(value) == str:
 			self.__FileLogs = Files.getLogFile(value)
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 
 	@FileLogs.deleter
 	def FileLogs(self):
@@ -147,7 +158,7 @@ class BaseTube(object):
 		if type(value) == str:
 			self.__url = value
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 
 	@url.deleter
 	def url(self):
@@ -158,7 +169,7 @@ class BaseTube(object):
 		if type(value) == bool:
 			self.__isPlayList = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isPlayList.deleter
 	def isPlayList(self):
@@ -169,7 +180,7 @@ class BaseTube(object):
 		if type(value) == str:
 			self.__loadDir = Files.checkPath(value)
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 
 	@LoadDir.deleter
 	def LoadDir(self):
@@ -181,7 +192,7 @@ class BaseTube(object):
 			if checkPathParent(value):
 				self.__plFile = value
 		else:
-			raise TypeError('Не верный тип данных! Введите строку!')
+			raise TypeError('Invalid data type! Enter the line!')
 
 	@plFile.deleter
 	def plFile(self):
@@ -192,7 +203,7 @@ class BaseTube(object):
 		if type(value) == bool:
 			self.__isSaveInfo = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isSaveInfo.deleter
 	def isSaveInfo(self):
@@ -203,7 +214,7 @@ class BaseTube(object):
 		if type(value) == bool:
 			self.__isSaveURL = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isSaveURL.deleter
 	def isSaveURL(self):
@@ -214,7 +225,7 @@ class BaseTube(object):
 		if type(value) == bool:
 			self.__isSaveIndex = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isSaveIndex.deleter
 	def isSaveIndex(self):
@@ -225,18 +236,29 @@ class BaseTube(object):
 		if type(value) == bool:
 			self.__isSaveName = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isSaveName.deleter
 	def isSaveName(self):
 		del self.__isSaveName
+
+	@isNameUses.setter
+	def isNameUses(self, value):
+		if type(value) == bool:
+			self.__isNameUses = value
+		else:
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
+
+	@isNameUses.deleter
+	def isNameUses(self):
+		del self.__isNameUses
 
 	@isSaveQuality.setter
 	def isSaveQuality(self, value):
 		if type(value) == bool:
 			self.__isSaveQuality = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isSaveQuality.deleter
 	def isSaveQuality(self):
@@ -247,7 +269,7 @@ class BaseTube(object):
 		if type(value) == bool:
 			self.__isCli = value
 		else:
-			raise TypeError('Не верный тип данных! Введите "True" или "False"!')
+			raise TypeError('Invalid data type! Enter "True" or "False"!')
 
 	@isCli.deleter
 	def isCli(self):
