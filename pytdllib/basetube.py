@@ -4,10 +4,10 @@ from filesdir import Files
 class BaseTube(object):
 	"""	Base Tube control class """
 
-	def __init__(self, link = '', loadDir = '', playListFile = '', 
-				isPlayList = False, isSaveInfo = False, isSaveURL = False, 
-				isSaveIndex = False, isSaveName = False, isNameUses = False,
-				isSaveQuality = True, isCli = True, fileLogs = ''):
+	def __init__(self, link : str = '', loadDir: str = '', playListFile: str = '', 
+				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
+				isSaveIndex: bool = False, isSaveName: bool = False, isNameUses: bool = False,
+				isSaveQuality: bool = True, isCli: bool = True, fileLogs: str = ''):
 		'''
 			__FileLogs - Лог ошибок
 			
@@ -40,59 +40,26 @@ class BaseTube(object):
 		self.video_url = []
 		self.OnName = []
 		
-		if type(link) == str:
-			self.__url = link
+		self.__url = link
+		self.__isPlayList = isPlayList
+		if loadDir == '':
+			self.__loadDir = Files.getCWDPath()
 		else:
-			raise TypeError('Invalid data type! Enter the line!')
-		if type(isPlayList) == bool:
-			self.__isPlayList = isPlayList
+			self.__loadDir = Files.checkPath(loadDir)
+		if playListFile == '':
+			self.__plFile = Files.getCWDJoinPath("playlist.txt")
 		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(loadDir) == str:	
-			if loadDir == '':
-				self.__loadDir = Files.getCWDPath()
+			if Files.checkPathParent(playListFile):
+				self.__plFile = playListFile
 			else:
-				self.__loadDir = Files.checkPath(loadDir)
-		else:
-			raise TypeError('Invalid data type! Enter the line!')
-		if type(playListFile) == str:
-			if playListFile == '':
 				self.__plFile = Files.getCWDJoinPath("playlist.txt")
-			else:
-				if Files.checkPathParent(playListFile):
-					self.__plFile = playListFile
-				else:
-					self.__plFile = Files.getCWDJoinPath("playlist.txt")
-		else:
-			raise TypeError('Invalid data type! Enter the line!')
-		if type(isSaveInfo) == bool:
-			self.__isSaveInfo = isSaveInfo
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(isSaveURL) == bool:
-			self.__isSaveURL = isSaveURL
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(isSaveIndex) == bool:
-			self.__isSaveIndex = isSaveIndex
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(isSaveName) == bool:
-			self.__isSaveName = isSaveIndex
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(isNameUses) == bool:
-			self.__isNameUses = isNameUses
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(isSaveQuality) == bool:
-			self.__isSaveQuality = isSaveQuality
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
-		if type(isCli) == bool:
-			self.__isCli = isCli
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+		self.__isSaveInfo = isSaveInfo
+		self.__isSaveURL = isSaveURL
+		self.__isSaveIndex = isSaveIndex
+		self.__isSaveName = isSaveIndex
+		self.__isNameUses = isNameUses
+		self.__isSaveQuality = isSaveQuality
+		self.__isCli = isCli
 
 	@property
 	def FileLogs(self):
@@ -143,133 +110,99 @@ class BaseTube(object):
 		return self.__isCli
 
 	@FileLogs.setter
-	def FileLogs(self, value):
-		if type(value) == str:
-			self.__FileLogs = Files.getLogFile(value)
-		else:
-			raise TypeError('Invalid data type! Enter the line!')
+	def FileLogs(self, value: str):
+		self.__FileLogs = Files.getLogFile(value)
 
 	@FileLogs.deleter
 	def FileLogs(self):
 		del self.__FileLogs
 
 	@url.setter
-	def url(self, value):
-		if type(value) == str:
-			self.__url = value
-		else:
-			raise TypeError('Invalid data type! Enter the line!')
+	def url(self, value: str):
+		self.__url = value
 
 	@url.deleter
 	def url(self):
 		del self.__url
 
 	@isPlayList.setter
-	def isPlayList(self, value):
-		if type(value) == bool:
-			self.__isPlayList = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isPlayList(self, value: bool):
+		self.__isPlayList = value
 
 	@isPlayList.deleter
 	def isPlayList(self):
 		del self.__isPlayList
 
 	@LoadDir.setter
-	def LoadDir(self, value):
-		if type(value) == str:
-			self.__loadDir = Files.checkPath(value)
-		else:
-			raise TypeError('Invalid data type! Enter the line!')
+	def LoadDir(self, value: str):
+		self.__loadDir = Files.checkPath(value)
 
 	@LoadDir.deleter
 	def LoadDir(self):
 		del self.__loadDir
 
 	@plFile.setter
-	def plFile(self, value):
-		if type(value) == str:
-			if checkPathParent(value):
-				self.__plFile = value
+	def plFile(self, value: str):
+		if checkPathParent(value):
+			self.__plFile = value
 		else:
-			raise TypeError('Invalid data type! Enter the line!')
+			self.__plFile = Files.getCWDJoinPath("playlist.txt")
 
 	@plFile.deleter
 	def plFile(self):
 		del self.__plFile
 
 	@isSaveInfo.setter
-	def isSaveInfo(self, value):
-		if type(value) == bool:
-			self.__isSaveInfo = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isSaveInfo(self, value: str):
+		self.__isSaveInfo = value
 
 	@isSaveInfo.deleter
 	def isSaveInfo(self):
 		del self.__isSaveInfo
 
 	@isSaveURL.setter
-	def isSaveURL(self, value):
-		if type(value) == bool:
-			self.__isSaveURL = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isSaveURL(self, value: bool):
+		self.__isSaveURL = value
 
 	@isSaveURL.deleter
 	def isSaveURL(self):
 		del self.__isSaveURL
 
 	@isSaveIndex.setter
-	def isSaveIndex(self, value):
-		if type(value) == bool:
-			self.__isSaveIndex = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isSaveIndex(self, value: bool):
+		self.__isSaveIndex = value
 
 	@isSaveIndex.deleter
 	def isSaveIndex(self):
 		del self.__isSaveIndex
 
 	@isSaveName.setter
-	def isSaveName(self, value):
-		if type(value) == bool:
-			self.__isSaveName = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isSaveName(self, value: bool):
+		self.__isSaveName = value
 
 	@isSaveName.deleter
 	def isSaveName(self):
 		del self.__isSaveName
 
 	@isNameUses.setter
-	def isNameUses(self, value):
-		if type(value) == bool:
-			self.__isNameUses = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isNameUses(self, value: bool):
+		self.__isNameUses = value
 
 	@isNameUses.deleter
 	def isNameUses(self):
 		del self.__isNameUses
 
 	@isSaveQuality.setter
-	def isSaveQuality(self, value):
-		if type(value) == bool:
-			self.__isSaveQuality = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isSaveQuality(self, value: bool):
+		self.__isSaveQuality = value
 
 	@isSaveQuality.deleter
 	def isSaveQuality(self):
 		del self.__isSaveQuality
 
 	@isCli.setter
-	def isCli(self, value):
-		if type(value) == bool:
-			self.__isCli = value
-		else:
-			raise TypeError('Invalid data type! Enter "True" or "False"!')
+	def isCli(self, value: bool):
+		self.__isCli = value
 
 	@isCli.deleter
 	def isCli(self):
