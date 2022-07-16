@@ -2,32 +2,32 @@ import pathlib
 import re
 
 class Files:
-	''' Работа с файлами '''
+	''' Working with files. '''
 
 	@staticmethod
 	def getRealPath(pathname):
-		''' Получение полной директори '''
+		''' Getting the full directory. '''
 		return str(pathlib.Path(pathname).resolve())
 
 	@staticmethod
 	def getCWDPath():
-		''' Получение текущей директории '''
+		''' Getting the current directory. '''
 		return str(pathlib.Path(pathlib.Path.cwd()).resolve())
 
 	@staticmethod
 	def getCWDJoinPath(onFiles: str):
-		''' Присоединить к текущей директории файл '''
+		''' Attach a file to the current directory. '''
 		return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath(onFiles))
 
 	@staticmethod
 	def getJoinPath(folder: str, value: str):
-		''' Присоединить к существующей директории другую или имя файла '''
+		''' Attach a folder or file to an existing directory. '''
 		real_path = Files.checkRealPath(folder)
 		return str(pathlib.Path(real_path).resolve().joinpath(value))
 
 	@staticmethod
 	def checkRealPath(folder: str):
-		''' Найти существовующую директорию, возможно одну из родительской '''
+		''' Find an existing directory, possibly one of the parent. '''
 		real_path = Files.getRealPath(folder)
 		if pathlib.Path(real_path).exists():
 			return real_path
@@ -37,7 +37,7 @@ class Files:
 
 	@staticmethod
 	def getLogFile(logFile: str = ''):
-		''' Лог файл ошибок '''
+		''' Error log file. '''
 		if logFile == '':
 			return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 		else:
@@ -48,7 +48,7 @@ class Files:
 
 	@staticmethod
 	def checkPath(onPath: str):
-		''' Проверка наличия директори и при отстутствии её создание '''
+		''' Checking the presence of the directory. In its absence, a new directory will be created. '''
 		downloadpath = Files.getRealPath(onPath)
 		if not pathlib.Path(downloadpath).exists():
 			pathlib.Path(downloadpath).mkdir(parents=True, exist_ok=True)
@@ -56,7 +56,7 @@ class Files:
 
 	@staticmethod
 	def checkPathParent(fileORDir: str):
-		''' Проверка наличия родительской директории '''
+		''' Checking for the presence of the parent directory. '''
 		path_parent = str(pathlib.Path(fileORDir).parent.resolve())
 		if not pathlib.Path(path_parent).exists():
 			return False
@@ -65,7 +65,7 @@ class Files:
 
 	@staticmethod
 	def filterName(onNames: str) -> str:
-		''' Фильтрация недопустимых символов имен файлов для разных ОС '''
+		''' Filtering of invalid file name characters for different OS. '''
 		outname = str(onNames).replace('|', '.').replace('%', '.').replace(':', '.').replace('"', '.').replace("'", ".").replace('<', '.').replace('>', '.')\
 		.replace('[', '.').replace(']', '.').replace('{', '.').replace('}', '.').replace('#', '.').replace('$', '.').replace('?', '.')\
 		.replace('`', '.').replace('~', '.').replace('@', '.').replace('!', '.').replace('&', '.').replace('^', '.').replace('*', '.')

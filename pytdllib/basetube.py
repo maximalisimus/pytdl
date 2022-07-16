@@ -7,30 +7,30 @@ class BaseTube(object):
 	def __init__(self, link : str = '', loadDir: str = '', playListFile: str = '', 
 				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
 				isSaveIndex: bool = False, isSaveName: bool = False, isNameUses: bool = False,
-				isSaveQuality: bool = True, isCli: bool = True, fileLogs: str = ''):
+				isIndexFile: bool = True, isSaveQuality: bool = True, isCli: bool = True, fileLogs: str = ''):
 		'''
-			__FileLogs - Лог ошибок
+			__FileLogs - Error log.
 			
-			При каждой загрузке или получения информации об одном или нескольких видео автоматически меняются независимо от пользователя.
-			Quality = 240p, 360p, 480p, 720p, 1024p Получение максимального разрешения каждого видео при скачивании или сохранении информации
-			isVideoCount = "1/5 720p" Номер, общее число, разрешение каждого видео
-			onVideo - Информация о текущем видео в случае выведения в лог ошибок
-			video_url - Загрузка ссылок из файла. 
-			onName - Наименования одного или всех видео.
+			Each time you upload or receive information about one or more videos, the following parameters automatically change regardless of the user.
+			Quality = 240p, 360p, 480p, 720p, 1024p. Getting the maximum resolution of each video when downloading or saving information.
+			isVideoCount = "1/5 720p" Number/total number, resolution of each video.
+			onVideo - Information about the current video in case of output to the error log.
+			video_url - loading links from a file.
+			onName - Names of one or all videos.
 			
-			__url - текущая ссылка пользователя
-			__isPlayList - Флаг плейлиста
-			__loadDir - Директория для скачивания. При наличии, автоматически проверяется на существование и при отсутствии - создаётся
-			__plFile - Файл плейлиста. При наличии, проверяется директория, в которой он располагается на существование. 
-							При отсутствии директории родителя задаётся значение по умолчанию.
-			__isSaveInfo - Флаг сохранении всей информации о плейлисте или одном видео.
-			__isSaveURL - Флаг сохранения ссылок плейлиста или одного видео.
-			__isSaveIndex - Флаг сохранения индексации видео только при сохранении текстовой информации. 
-							Индексация файлов плейлиста автоматическая и не изменяется во избежание конфликтов имён.
-			__isSaveName - Флаг сохранения наименований видео плейлиста или одного видео.
-			__isNameUses - Флаг использования имен видео при их загрузке.
-			__isSaveQuality - Флаг сохранения разрешения видео при наименовании файлов плейлиста или одного видео.
-			__isCli - Флаг вывода сообщений консоли.
+			__url - The user's current link.
+			__isPlayList - Playlist flag.
+			__loadDir - The download directory. It is automatically checked for existence and, if absent, it is created.
+			__plFile - Playlist file. The existence of the parent directory is automatically checked.
+							If there is no parent directory, the default value is set.
+			__isSaveInfo - Flag for saving all information about a playlist or a single video.
+			__isSaveURL - Flag for saving playlist or single video links.
+			__isSaveIndex - Flag for saving video indexing only when saving text information. 
+			__isIndexFile - File indexing flag.
+			__isSaveName - Flag for saving the names of a video playlist or a single video.
+			__isNameUses - Flag for using video names when uploading them.
+			__isSaveQuality - Flag for saving video resolution when naming playlist files or a single video.
+			__isCli - Flag for console message output.
 		'''
 		self.__FileLogs = Files.getLogFile(fileLogs)
 		
@@ -56,6 +56,7 @@ class BaseTube(object):
 		self.__isSaveInfo = isSaveInfo
 		self.__isSaveURL = isSaveURL
 		self.__isSaveIndex = isSaveIndex
+		self.__isIndexFile = isIndexFile
 		self.__isSaveName = isSaveIndex
 		self.__isNameUses = isNameUses
 		self.__isSaveQuality = isSaveQuality
@@ -92,6 +93,10 @@ class BaseTube(object):
 	@property
 	def isSaveIndex(self):
 		return self.__isSaveIndex
+
+	@property
+	def isIndexFile(self):
+		return self.__isIndexFile
 
 	@property
 	def isSaveName(self):
@@ -175,6 +180,14 @@ class BaseTube(object):
 	@isSaveIndex.deleter
 	def isSaveIndex(self):
 		del self.__isSaveIndex
+
+	@isIndexFile.setter
+	def isIndexFile(self, value: bool):
+		self.__isIndexFile = value
+
+	@isIndexFile.deleter
+	def isIndexFile(self):
+		del self.__isIndexFile
 
 	@isSaveName.setter
 	def isSaveName(self, value: bool):
