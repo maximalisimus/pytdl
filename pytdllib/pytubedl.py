@@ -1,4 +1,4 @@
-from .basetube import BaseTube
+from .basetube import *
 
 __all__ = ['PyTDL']
 

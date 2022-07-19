@@ -1,10 +1,43 @@
+__all__ = ['Files']
+
 import pathlib
 import re
 
-__all__ = ['Files']
-
 class Files:
-	''' Working with files. '''
+	''' Help on class.
+
+	Name: 
+		Files - Files and folders.
+
+	Note:
+		A module for working with files and folders.
+
+	File:
+		filesdir.py
+
+	Methods
+	----------
+		getRealPath(pathname):
+			Getting the full directory.
+		getCWDPath():
+			Getting the current directory.
+		getCWDJoinPath(onFiles: str):
+			Attach a file to the current directory.
+		getJoinPath(folder: str, value: str):
+			Attach a folder or file to an existing directory.
+		getParentPath(folder: str):
+			Find an existing directory, possibly one of the parent.
+		getFileName(fileORDir: str):
+			Get the file name from the link.
+		getLogFile(logFile: str = ''):
+			Error log file.
+		checkPath(onPath: str):
+			Checking the presence of the directory. In its absence, a new directory will be created.
+		checkPathParent(fileORDir: str):
+			Checking for the presence of the parent directory.
+		filterName(onNames: str) -> str:
+			Filtering of invalid file name characters for different OS.
+	'''
 
 	@staticmethod
 	def getRealPath(pathname):
@@ -39,6 +72,7 @@ class Files:
 	
 	@staticmethod
 	def getFileName(fileORDir: str):
+		''' Get the file name from the link. '''
 		return str(pathlib.Path(fileORDir).name)
 
 	@staticmethod
