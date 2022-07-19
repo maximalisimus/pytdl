@@ -19,7 +19,7 @@ class BaseTube(object):
 
 	Attributes
 	----------
-		FileLogs : str
+		FileLog : str
 			Error log.
 
 		Each time you upload or receive information 
@@ -75,7 +75,7 @@ class BaseTube(object):
 			Flag for console message output.
 	"""
 
-	FileLogs = Stroka()
+	FileLog = Stroka()
 	url = Stroka()
 	isPlayList = Boolean()
 	loadDir = Stroka()
@@ -111,7 +111,7 @@ class BaseTube(object):
 			isIndexFile: bool = True
 			isSaveQuality: bool = True
 			isCli: bool = True
-			FileLogs: str = ''
+			FileLog: str = ''
 		'''
 		self.Quality = ''
 		self.isVideoCount = ''
@@ -136,7 +136,7 @@ class BaseTube(object):
 		self.isIndexFile = args[9] if len(args) >= 10 else kwargs.get('isIndexFile', True)
 		self.isSaveQuality = args[10] if len(args) >= 11 else kwargs.get('isSaveQuality', True)
 		self.isCli = args[11] if len(args) >= 12 else kwargs.get('isCli', True)
-		self.FileLogs = Files.getLogFile(args[12]) if len(args) >= 13 else Files.getLogFile(kwargs.get('FileLogs', ''))
+		self.FileLog = Files.getLogFile(args[12]) if len(args) >= 13 else Files.getLogFile(kwargs.get('FileLog', ''))
 
 	def __setattr__(self, key, value):
 		isValue = False
@@ -146,7 +146,7 @@ class BaseTube(object):
 		if key == 'plFile':
 			onValue = Files.getCWDJoinPath("playlist.txt") if vaue == '' else Files.getJoinPath(Files.getParentPath(value), Files.getFileName(value))
 			isValue = True
-		if key == 'FileLogs':
+		if key == 'FileLog':
 			onValue = Files.getLogFile(value)
 			isValue = True
 		object.__setattr__(self, key, onValue if isValue else value)
