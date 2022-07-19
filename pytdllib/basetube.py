@@ -146,4 +146,7 @@ class BaseTube(object):
 		if key == 'plFile':
 			onValue = Files.getCWDJoinPath("playlist.txt") if vaue == '' else Files.getJoinPath(Files.getParentPath(value), Files.getFileName(value))
 			isValue = True
+		if key == 'FileLogs':
+			onValue = Files.getLogFile(value)
+			isValue = True
 		object.__setattr__(self, key, onValue if isValue else value)

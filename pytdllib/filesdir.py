@@ -85,12 +85,12 @@ class Files:
 	def getLogFile(logFile: str = '') -> str:
 		''' Error log file. '''
 		if logFile == '':
-			return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
+			return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("log.txt"))
 		else:
-			if Files.checkPathText(logFile):
+			if Files.checkPathParent(logFile):
 				return getRealPath(logFile)
 			else:
-				return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
+				return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("log.txt"))
 
 	@staticmethod
 	def checkPath(onPath: str) -> str:
