@@ -1,6 +1,8 @@
 import pathlib
 import re
 
+__all__ = ['Files']
+
 class Files:
 	''' Working with files. '''
 

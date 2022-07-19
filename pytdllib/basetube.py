@@ -1,5 +1,5 @@
 import pathlib
-from filesdir import Files
+from .filesdir import Files
 
 class BaseTube(object):
 	"""	Base Tube control class """
