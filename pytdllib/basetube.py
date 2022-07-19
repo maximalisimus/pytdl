@@ -58,7 +58,10 @@ class BaseTube(object):
 		self.OnName = []
 		
 		self.url = args[0] if len(args) >= 1 else kwargs.get('link', '')
-		self.loadDir = (Files.getCWDPath() if args[1] == '' else Files.checkPath(args[1])) if len(args) >= 2 else (Files.getCWDPath() if kwargs.get('loadDir', '') == '' else Files.checkPath(kwargs.get('loadDir', '')))
+		self.loadDir = (Files.getCWDPath() if args[1] == '' 
+						else Files.checkPath(args[1])) if len(args) >= 2 
+						else (Files.getCWDPath() if kwargs.get('loadDir', '') == '' 
+						else Files.checkPath(kwargs.get('loadDir', '')))
 		self.plFile = (Files.getCWDJoinPath("playlist.txt") if args[2] == '' 
 						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2]))) if len(args) >= 3 
 						else (Files.getCWDJoinPath("playlist.txt") if kwargs.get('playListFile', '') = '' 
