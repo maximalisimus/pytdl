@@ -2,10 +2,6 @@
 .bashrc
 *.bat
 
-# venv directoryes
-linux-env/
-win-env/
-
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -117,6 +113,8 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+linux-env/
+win-env/
 
 # Spyder project settings
 .spyderproject

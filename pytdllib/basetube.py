@@ -137,3 +137,13 @@ class BaseTube(object):
 		self.isSaveQuality = args[10] if len(args) >= 11 else kwargs.get('isSaveQuality', True)
 		self.isCli = args[11] if len(args) >= 12 else kwargs.get('isCli', True)
 		self.FileLogs = Files.getLogFile(args[12]) if len(args) >= 13 else Files.getLogFile(kwargs.get('FileLogs', ''))
+
+	def __setattr__(self, key, value):
+		isValue = False
+		if key == 'loadDir':
+			onValue = Files.getCWDPath() if vaue == '' else Files.checkPath(value)
+			isValue = True
+		if key == 'plFile':
+			onValue = Files.getCWDJoinPath("playlist.txt") if vaue == '' else Files.getJoinPath(Files.getParentPath(value), Files.getFileName(value))
+			isValue = True
+		object.__setattr__(self, key, onValue if isValue else value)

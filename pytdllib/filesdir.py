@@ -17,27 +17,27 @@ class Files:
 
 	Methods
 	----------
-		getRealPath(pathname):
+		getRealPath(pathname: str) -> str:
 			Getting the full directory.
-		getCWDPath():
+		getCWDPath() -> str:
 			Getting the current directory.
-		getCWDJoinPath(onFiles: str):
+		getCWDJoinPath(onFiles: str) -> str:
 			Attach a file to the current directory.
-		getJoinPath(folder: str, value: str):
+		getJoinPath(folder: str, value: str) -> str:
 			Attach a folder or file to an 
 			existing directory.
-		getParentPath(folder: str):
+		getParentPath(folder: str) -> str:
 			Find an existing directory, 
 			possibly one of the parent.
-		getFileName(fileORDir: str):
+		getFileName(fileORDir: str) -> str:
 			Get the file name from the link.
-		getLogFile(logFile: str = ''):
+		getLogFile(logFile: str = '') -> str:
 			Error log file.
-		checkPath(onPath: str):
+		checkPath(onPath: str) -> str:
 			Checking the presence of the directory. 
 			In its absence, a new directory 
 			will be created.
-		checkPathParent(fileORDir: str):
+		checkPathParent(fileORDir: str) -> str:
 			Checking for the presence 
 			of the parent directory.
 		filterName(onNames: str) -> str:
@@ -46,28 +46,28 @@ class Files:
 	'''
 
 	@staticmethod
-	def getRealPath(pathname):
+	def getRealPath(pathname: str) -> str:
 		''' Getting the full directory. '''
 		return str(pathlib.Path(pathname).resolve())
 
 	@staticmethod
-	def getCWDPath():
+	def getCWDPath() -> str:
 		''' Getting the current directory. '''
 		return str(pathlib.Path(pathlib.Path.cwd()).resolve())
 
 	@staticmethod
-	def getCWDJoinPath(onFiles: str):
+	def getCWDJoinPath(onFiles: str) -> str:
 		''' Attach a file to the current directory. '''
 		return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath(onFiles))
 
 	@staticmethod
-	def getJoinPath(folder: str, value: str):
+	def getJoinPath(folder: str, value: str) -> str:
 		''' Attach a folder or file to an existing directory. '''
 		real_path = Files.checkRealPath(folder)
 		return str(pathlib.Path(real_path).resolve().joinpath(value))
 
 	@staticmethod
-	def getParentPath(folder: str):
+	def getParentPath(folder: str) -> str:
 		''' Find an existing directory, possibly one of the parent. '''
 		real_path = Files.getRealPath(folder)
 		if pathlib.Path(real_path).exists():
@@ -77,12 +77,12 @@ class Files:
 			return Files.checkRealPath(real_path)
 	
 	@staticmethod
-	def getFileName(fileORDir: str):
+	def getFileName(fileORDir: str) -> str:
 		''' Get the file name from the link. '''
 		return str(pathlib.Path(fileORDir).name)
 
 	@staticmethod
-	def getLogFile(logFile: str = ''):
+	def getLogFile(logFile: str = '') -> str:
 		''' Error log file. '''
 		if logFile == '':
 			return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
@@ -93,13 +93,13 @@ class Files:
 				return str(pathlib.Path(pathlib.Path.cwd()).resolve().joinpath("logs.txt"))
 
 	@staticmethod
-	def checkPath(onPath: str):
+	def checkPath(onPath: str) -> str:
 		''' Checking the presence of the directory. 
 		In its absence, a new directory will be created. '''
-		downloadpath = Files.getRealPath(onPath)
-		if not pathlib.Path(downloadpath).exists():
-			pathlib.Path(downloadpath).mkdir(parents=True, exist_ok=True)
-		return downloadpath
+		yourPath = Files.getRealPath(onPath)
+		if not pathlib.Path(yourPath).exists():
+			pathlib.Path(yourPath).mkdir(parents=True, exist_ok=True)
+		return yourPath
 
 	@staticmethod
 	def checkPathParent(fileORDir: str):
