@@ -63,6 +63,6 @@ class BaseTube(object):
 						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2]))) if len(args) >= 3 
 						else (Files.getCWDJoinPath("playlist.txt") if kwargs.get('playListFile', '') = '' 
 						else Files.getJoinPath(Files.getParentPath(kwargs.get('playListFile', '')), Files.getFileName(kwargs.get('playListFile', ''))))
-		self.isPlayList = args[3] if len(args) >= 4 else kwargs.get('link', '')
-		
+		self.isPlayList = args[3] if len(args) >= 4 else kwargs.get('isPlayList', '')
+		self.isSaveInfo = args[4] if len(args) >= 5 else kwargs.get('isSaveInfo', '')
 
