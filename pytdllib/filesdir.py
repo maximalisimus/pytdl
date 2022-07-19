@@ -24,19 +24,25 @@ class Files:
 		getCWDJoinPath(onFiles: str):
 			Attach a file to the current directory.
 		getJoinPath(folder: str, value: str):
-			Attach a folder or file to an existing directory.
+			Attach a folder or file to an 
+			existing directory.
 		getParentPath(folder: str):
-			Find an existing directory, possibly one of the parent.
+			Find an existing directory, 
+			possibly one of the parent.
 		getFileName(fileORDir: str):
 			Get the file name from the link.
 		getLogFile(logFile: str = ''):
 			Error log file.
 		checkPath(onPath: str):
-			Checking the presence of the directory. In its absence, a new directory will be created.
+			Checking the presence of the directory. 
+			In its absence, a new directory 
+			will be created.
 		checkPathParent(fileORDir: str):
-			Checking for the presence of the parent directory.
+			Checking for the presence 
+			of the parent directory.
 		filterName(onNames: str) -> str:
-			Filtering of invalid file name characters for different OS.
+			Filtering of invalid file name 
+			characters for different OS.
 	'''
 
 	@staticmethod
@@ -88,7 +94,8 @@ class Files:
 
 	@staticmethod
 	def checkPath(onPath: str):
-		''' Checking the presence of the directory. In its absence, a new directory will be created. '''
+		''' Checking the presence of the directory. 
+		In its absence, a new directory will be created. '''
 		downloadpath = Files.getRealPath(onPath)
 		if not pathlib.Path(downloadpath).exists():
 			pathlib.Path(downloadpath).mkdir(parents=True, exist_ok=True)

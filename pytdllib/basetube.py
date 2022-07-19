@@ -10,25 +10,31 @@ class BaseTube(object):
 		BaseTube - The base class of the "Pytube" class management.
 
 	Note:
-		This class is only a set of certain parameters, i.e. strictly defined variables. 
+		This class is only a set of certain parameters, 
+		i.e. strictly defined variables. 
 		There is no control in this class.
 
 	File:
 		basetube.py
 
 	Attributes
-    ----------
+	----------
 		FileLogs : str
 			Error log.
 
-		Each time you upload or receive information about one or more videos, the following parameters automatically change regardless of the user.
+		Each time you upload or receive information 
+		about one or more videos, the following parameters 
+		automatically change regardless of the user.
 		Quality : str 
 			240p, 360p, 480p, 720p, 1024p. 
-			Getting the maximum resolution of each video when downloading or saving information.
+			Getting the maximum resolution of each video 
+			when downloading or saving information.
 		isVideoCount : str
-			"1/5 720p" - Number/total number, resolution of each video.
+			"1/5 720p" - Number/total number, 
+			resolution of each video.
 		onVideo : str
-			Information about the current video in case of output to the error log.
+			Information about the current video in case 
+			of output to the error log.
 		video_url : str
 			loading links from a file.
 		onName : str
@@ -39,24 +45,32 @@ class BaseTube(object):
 		isPlayList : bool
 			Playlist flag.
 		loadDir : str
-			The download directory. It is automatically checked for existence and, if absent, it is created.
+			The download directory. 
+			It is automatically checked for existence and, 
+			if absent, it is created.
 		plFile : str
-			Playlist file. The existence of the parent directory is automatically checked.
-			If there is no parent directory, the default value is set.
+			Playlist file. The existence of the parent directory 
+			is automatically checked.
+			If there is no parent directory, 
+			the default value is set.
 		isSaveInfo : bool
-			Flag for saving all information about a playlist or a single video.
+			Flag for saving all information about a playlist 
+			or a single video.
 		isSaveURL : bool
 			Flag for saving playlist or single video links.
 		isSaveIndex : bool
-			Flag for saving video indexing only when saving text information. 
+			Flag for saving video indexing only 
+			when saving text information. 
 		isIndexFile : bool
 			File indexing flag.
 		isSaveName : bool
-			Flag for saving the names of a video playlist or a single video.
+			Flag for saving the names of a video playlist 
+			or a single video.
 		isNameUses : bool
 			Flag for using video names when uploading them.
 		isSaveQuality : bool
-			Flag for saving video resolution when naming playlist files or a single video.
+			Flag for saving video resolution 
+			when naming playlist files or a single video.
 		isCli : bool
 			Flag for console message output.
 	"""
@@ -79,10 +93,12 @@ class BaseTube(object):
 		''' Initialization.
 		
 		Note:
-			The order of assigning values to variables that you do not want to enter names ("*args") or named arguments "**kwargs" with default values.
+			The order of assigning values to variables 
+			that you do not want to enter names ("*args") 
+			or named arguments "**kwargs" with default values.
 		
 		Parameters
-        ----------
+		----------
 			link : str = ''
 			loadDir: str = ''
 			playListFile: str = '' 
