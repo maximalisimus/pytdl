@@ -1,5 +1,5 @@
-from .filesdir import Files
-from .vars import Stroka, Boolean
+from filesdir import Files
+from variables import Stroka, Boolean
 
 __all__ = ['BaseTube']
 
@@ -29,19 +29,19 @@ class BaseTube(object):
 		isSaveQuality - Flag for saving video resolution when naming playlist files or a single video.
 		isCli - Flag for console message output.
 	"""
-	self.FileLogs = Stroka()
-	self.url = Stroka()
-	self.isPlayList = Boolean()
-	self.loadDir = Stroka()
-	self.plFile = Stroka()
-	self.isSaveInfo = Boolean()
-	self.isSaveURL = Boolean()
-	self.isSaveIndex = Boolean()
-	self.isIndexFile = Boolean()
-	self.isSaveName = Boolean()
-	self.isNameUses = Boolean()
-	self.isSaveQuality = Boolean()
-	self.isCli = Boolean()
+	FileLogs = Stroka()
+	url = Stroka()
+	isPlayList = Boolean()
+	loadDir = Stroka()
+	plFile = Stroka()
+	isSaveInfo = Boolean()
+	isSaveURL = Boolean()
+	isSaveIndex = Boolean()
+	isIndexFile = Boolean()
+	isSaveName = Boolean()
+	isNameUses = Boolean()
+	isSaveQuality = Boolean()
+	isCli = Boolean()
 
 	def __init__(self, *args, **kwargs):
 		'''
@@ -57,14 +57,13 @@ class BaseTube(object):
 		self.OnName = []
 		
 		self.url = args[0] if len(args) >= 1 else kwargs.get('link', '')
-		self.loadDir = (Files.getCWDPath() if args[1] == '' 
-						else Files.checkPath(args[1])) if len(args) >= 2 
-						else (Files.getCWDPath() if kwargs.get('loadDir', '') == '' 
+		self.loadDir = (Files.getCWDPath() if args[1] == '' \
+						else Files.checkPath(args[1])) if len(args) >= 2 \
+						else (Files.getCWDPath() if kwargs.get('loadDir', '') == '' \
 						else Files.checkPath(kwargs.get('loadDir', '')))
-		self.plFile = (Files.getCWDJoinPath("playlist.txt") if args[2] == '' 
-						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2]))) if len(args) >= 3 
-						else (Files.getCWDJoinPath("playlist.txt") if kwargs.get('playListFile', '') = '' 
-						else Files.getJoinPath(Files.getParentPath(kwargs.get('playListFile', '')), Files.getFileName(kwargs.get('playListFile', ''))))
+		self.plFile = ( Files.getCWDJoinPath("playlist.txt") if args[2] == '' \
+						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2])) ) if len(args) >= 3 \
+						else Files.getJoinPath(Files.getParentPath(kwargs.get('playListFile', '')), Files.getFileName(kwargs.get('playListFile', ''))) # kwargs.get('playListFile', '')
 		self.isPlayList = args[3] if len(args) >= 4 else kwargs.get('isPlayList', False)
 		self.isSaveInfo = args[4] if len(args) >= 5 else kwargs.get('isSaveInfo', False)
 		self.isSaveURL = args[5] if len(args) >= 6 else kwargs.get('isSaveURL', False)
