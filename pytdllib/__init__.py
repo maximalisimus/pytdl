@@ -5,9 +5,10 @@ i.e. it makes it easier to save playlists or individual videos in any format:
 This package supports loading/unloading links via a text file.
 
 Artamonov Mikhail [https://github.com/maximalisimus]
-maximalisimus121@mail.ru
+maximalis171091@yandex.ru
 # License: GPL3
 """
+
 __author__ = 'Mikhail Artamonov'
 
 try:
