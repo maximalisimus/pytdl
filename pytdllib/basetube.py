@@ -1,4 +1,3 @@
-import pathlib
 from .filesdir import Files
 from .vars import Stroka, Boolean
 
