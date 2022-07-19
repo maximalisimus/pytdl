@@ -1,5 +1,5 @@
-from filesdir import Files
-from variables import Stroka, Boolean
+from .filesdir import Files
+from .variables import Stroka, Boolean
 
 __all__ = ['BaseTube']
 
