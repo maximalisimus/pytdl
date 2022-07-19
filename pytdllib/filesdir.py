@@ -28,7 +28,7 @@ class Files:
 		return str(pathlib.Path(real_path).resolve().joinpath(value))
 
 	@staticmethod
-	def checkRealPath(folder: str):
+	def getParentPath(folder: str):
 		''' Find an existing directory, possibly one of the parent. '''
 		real_path = Files.getRealPath(folder)
 		if pathlib.Path(real_path).exists():
@@ -36,6 +36,10 @@ class Files:
 		else:
 			real_path = str(pathlib.Path(folder).parent.resolve())
 			return Files.checkRealPath(real_path)
+	
+	@staticmethod
+	def getFileName(fileORDir: str):
+		return str(pathlib.Path(fileORDir).name)
 
 	@staticmethod
 	def getLogFile(logFile: str = ''):
