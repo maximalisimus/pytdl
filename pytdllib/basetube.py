@@ -47,9 +47,9 @@ class BaseTube(object):
 	def __init__(self, *args, **kwargs):
 		'''
 			link : str = '', loadDir: str = '', playListFile: str = '', 
-				isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
-				isSaveIndex: bool = False, isSaveName: bool = False, isNameUses: bool = False,
-				isIndexFile: bool = True, isSaveQuality: bool = True, isCli: bool = True, FileLogs: str = ''
+			isPlayList: bool = False, isSaveInfo: bool = False, isSaveURL: bool = False, 
+			isSaveIndex: bool = False, isSaveName: bool = False, isNameUses: bool = False,
+			isIndexFile: bool = True, isSaveQuality: bool = True, isCli: bool = True, FileLogs: str = ''
 		'''
 		self.Quality = ''
 		self.isVideoCount = ''
@@ -57,20 +57,12 @@ class BaseTube(object):
 		self.video_url = []
 		self.OnName = []
 		
-		self.url = args[0] if 1>= len(args) else kwargs.get('link', '')
-		self.loadDir = (Files.getCWDPath() if args[1] == '' else Files.checkPath(args[1])) if 1>= len(args) else (Files.getCWDPath() if kwargs.get('loadDir', '') == '' else Files.checkPath(kwargs.get('loadDir', '')))
+		self.url = args[0] if len(args) >= 1 else kwargs.get('link', '')
+		self.loadDir = (Files.getCWDPath() if args[1] == '' else Files.checkPath(args[1])) if len(args) >= 2 else (Files.getCWDPath() if kwargs.get('loadDir', '') == '' else Files.checkPath(kwargs.get('loadDir', '')))
 		self.plFile = (Files.getCWDJoinPath("playlist.txt") if args[2] == '' 
-						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2]))) if 1>= len(args) 
+						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2]))) if len(args) >= 3 
 						else (Files.getCWDJoinPath("playlist.txt") if kwargs.get('playListFile', '') = '' 
 						else Files.getJoinPath(Files.getParentPath(kwargs.get('playListFile', '')), Files.getFileName(kwargs.get('playListFile', ''))))
+		self.isPlayList = args[3] if len(args) >= 4 else kwargs.get('link', '')
 		
-		'''
-		if playListFile == '':
-			self.__plFile = Files.getCWDJoinPath("playlist.txt")
-		else:
-			if Files.checkPathParent(playListFile):
-				self.__plFile = playListFile
-			else:
-				self.__plFile = Files.getCWDJoinPath("playlist.txt")
-		'''
 
