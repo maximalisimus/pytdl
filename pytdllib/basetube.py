@@ -63,6 +63,13 @@ class BaseTube(object):
 						else Files.getJoinPath(Files.getParentPath(args[2]), Files.getFileName(args[2]))) if len(args) >= 3 
 						else (Files.getCWDJoinPath("playlist.txt") if kwargs.get('playListFile', '') = '' 
 						else Files.getJoinPath(Files.getParentPath(kwargs.get('playListFile', '')), Files.getFileName(kwargs.get('playListFile', ''))))
-		self.isPlayList = args[3] if len(args) >= 4 else kwargs.get('isPlayList', '')
-		self.isSaveInfo = args[4] if len(args) >= 5 else kwargs.get('isSaveInfo', '')
-
+		self.isPlayList = args[3] if len(args) >= 4 else kwargs.get('isPlayList', False)
+		self.isSaveInfo = args[4] if len(args) >= 5 else kwargs.get('isSaveInfo', False)
+		self.isSaveURL = args[5] if len(args) >= 6 else kwargs.get('isSaveURL', False)
+		self.isSaveIndex = args[6] if len(args) >= 7 else kwargs.get('isSaveIndex', False)
+		self.isSaveName = args[7] if len(args) >= 8 else kwargs.get('isSaveName', False)
+		self.isNameUses = args[8] if len(args) >= 9 else kwargs.get('isNameUses', False)
+		self.isIndexFile = args[9] if len(args) >= 10 else kwargs.get('isIndexFile', True)
+		self.isSaveQuality = args[10] if len(args) >= 11 else kwargs.get('isSaveQuality', True)
+		self.isCli = args[11] if len(args) >= 12 else kwargs.get('isCli', True)
+		self.FileLogs = Files.getLogFile(args[12]) if len(args) >= 13 else Files.getLogFile(kwargs.get('FileLogs', ''))
