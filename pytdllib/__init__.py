@@ -13,7 +13,7 @@ __author__ = 'Mikhail Artamonov'
 try:
     from .version import version
 except ImportError:
-    version = "1.0"
+    version = "1.0.0"
 
 __version__ = version
 
