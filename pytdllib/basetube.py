@@ -2,6 +2,7 @@ __all__ = ['BaseTube']
 
 from .filesdir import *
 from .variables import *
+from .functions import *
 
 class BaseTube(object):
 	"""	Help on class.
@@ -20,7 +21,7 @@ class BaseTube(object):
 	Attributes
 	----------
 		FileLog : str
-			Error log.
+			Log file.
 
 		Each time you upload or receive information 
 		about one or more videos, the following parameters 
@@ -137,6 +138,7 @@ class BaseTube(object):
 		self.isSaveQuality = args[10] if len(args) >= 11 else kwargs.get('isSaveQuality', True)
 		self.isCli = args[11] if len(args) >= 12 else kwargs.get('isCli', True)
 		self.FileLog = Files.getLogFile(args[12]) if len(args) >= 13 else Files.getLogFile(kwargs.get('FileLog', ''))
+		self.__onFinish = False
 
 	def __setattr__(self, key, value):
 		isValue = False

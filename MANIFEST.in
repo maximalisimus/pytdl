@@ -1,0 +1,2 @@
+include README.md LICENSE
+recursive-include pytdllib tests *.py
