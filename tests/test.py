@@ -9,7 +9,8 @@ import pathlib
 import sys
 #sys.path.insert(0, str(pathlib.Path('./pytdllib').resolve()))
 #from functions import *
-sys.path.insert(0, str(pathlib.Path('./').resolve()))
+#sys.path.insert(0, str(pathlib.Path('./').resolve()))
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent.parent))
 from pytdllib.functions import *
 
 def main():
