@@ -1,8 +1,8 @@
-__all__ = ['dateTimeToStrNow']
+__all__ = ['getDateTimeStr']
 
 from datetime import datetime
 
-def dateTimeToStrNow(strFormat = "%d.%m.%Y-%H:%M:%S") -> str:
+def getDateTimeStr(strFormat = "%d.%m.%Y-%H:%M:%S") -> str:
 	dateTime = datetime.now()
 	outDateTime = dateTime.strftime(strFormat)
 	return outDateTime

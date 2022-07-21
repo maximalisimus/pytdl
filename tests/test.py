@@ -18,7 +18,7 @@ def main():
 		print(i)
 	'''
 	#print(dir(sys.modules[__name__]))
-	print(dateTimeToStrNow())
+	print(getDateTimeStr())
 
 if __name__ == '__main__':
 	main()
