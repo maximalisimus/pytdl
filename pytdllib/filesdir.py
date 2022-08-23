@@ -111,14 +111,19 @@ class Files:
 			return True
 
 	@staticmethod
-	def filterName(onNames: str) -> str:
+	def FilterName(onNames: str) -> str:
 		''' Filtering of invalid file name characters for different OS. '''
-		outname = str(onNames).replace('|', '.').replace('%', '.').replace(':', '.').replace('"', '.').replace("'", ".").replace('<', '.').replace('>', '.')\
-		.replace('[', '.').replace(']', '.').replace('{', '.').replace('}', '.').replace('#', '.').replace('$', '.').replace('?', '.')\
-		.replace('`', '.').replace('~', '.').replace('@', '.').replace('!', '.').replace('&', '.').replace('^', '.').replace('*', '.')
-		pattern = r'(.)\1+'
+		prog = re.compile(r"[^A-Za-z0-9а-яА-Я.,-_ ]")
+		result = OnName[1:] if prog.match(OnName) else OnName[:]
+		result = re.sub("[^A-Za-z0-9а-яА-Я.,-_ ]", " ", result)
+		outname = str(result).replace('|', ' ').replace('%', ' ').replace(':', ' ').replace('"', ' ').replace("'", " ").replace('<', ' ').replace('>', ' ')\
+			.replace('[', ' ').replace(']', ' ').replace('{', ' ').replace('}', ' ').replace('#', ' ').replace('$', ' ').replace('?', ' ')\
+			.replace('`', ' ').replace('~', ' ').replace('@', ' ').replace('!', ' ').replace('&', ' ').replace('^', ' ').replace('*', ' ')\
+			.replace('\\', ' ').replace('/', ' ')
+		pattern = r'( )\1+'
 		repl = r'\1'
-		return re.sub(pattern,repl,outname).strip()
+		result = re.sub(pattern,repl,outname).strip()
+		return result.strip()
 
 '''
 
