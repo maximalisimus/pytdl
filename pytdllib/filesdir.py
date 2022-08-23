@@ -116,10 +116,14 @@ class Files:
 		prog = re.compile(r"[^A-Za-z0-9а-яА-Я.,-_ ]")
 		result = OnName[1:] if prog.match(OnName) else OnName[:]
 		result = re.sub("[^A-Za-z0-9а-яА-Я.,-_ ]", " ", result)
-		outname = str(result).replace('|', ' ').replace('%', ' ').replace(':', ' ').replace('"', ' ').replace("'", " ").replace('<', ' ').replace('>', ' ')\
-			.replace('[', ' ').replace(']', ' ').replace('{', ' ').replace('}', ' ').replace('#', ' ').replace('$', ' ').replace('?', ' ')\
-			.replace('`', ' ').replace('~', ' ').replace('@', ' ').replace('!', ' ').replace('&', ' ').replace('^', ' ').replace('*', ' ')\
-			.replace('\\', ' ').replace('/', ' ')
+		outname = str(result).replace('|', ' ').replace('%', ' ')\
+			.replace(':', ' ').replace('"', ' ').replace("'", " ")\
+			.replace('<', ' ').replace('>', ' ').replace('[', ' ')\
+			.replace(']', ' ').replace('{', ' ').replace('}', ' ')\
+			.replace('#', ' ').replace('$', ' ').replace('?', ' ')\
+			.replace('`', ' ').replace('~', ' ').replace('@', ' ')\
+			.replace('!', ' ').replace('&', ' ').replace('^', ' ')\
+			.replace('*', ' ').replace('\\', ' ').replace('/', ' ')
 		pattern = r'( )\1+'
 		repl = r'\1'
 		result = re.sub(pattern,repl,outname).strip()
