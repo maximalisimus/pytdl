@@ -123,7 +123,9 @@ class Files:
 			.replace('#', ' ').replace('$', ' ').replace('?', ' ')\
 			.replace('`', ' ').replace('~', ' ').replace('@', ' ')\
 			.replace('!', ' ').replace('&', ' ').replace('^', ' ')\
-			.replace('*', ' ').replace('\\', ' ').replace('/', ' ')
+			.replace('*', ' ').replace('\\', ' ').replace('/', ' ')\
+			.replace('+', ' ').replace('№', ' ').replace('^', ' ')\
+			.replace('=', ' ')
 		pattern = r'( )\1+'
 		repl = r'\1'
 		result = re.sub(pattern,repl,outname).strip()
