@@ -114,7 +114,7 @@ class Files:
 	def FilterName(OnName: str) -> str:
 		''' Filtering of invalid file name characters for different OS. '''
 		prog = re.compile(r"[^A-Za-z0-9а-яА-Я.,-_ ]")
-		result = OnName[1:] if prog.match(OnName) else OnName[:]
+		result = (OnName[1:] if prog.match(OnName).start() == 0 else OnName[:]) if prog.match(OnName) else OnName[:]
 		outname = re.sub("[^A-Za-z0-9а-яА-Я.,-_ ]", " ", result)
 		result = re.sub("[|%:\"'<>\[\]{}#$?`~@!&\^\*\\/\+№=\r]", " ", outname)
 		pattern = r'( )\1+'
