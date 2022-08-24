@@ -115,18 +115,9 @@ class Files:
 		''' Filtering of invalid file name characters for different OS. '''
 		prog = re.compile(r"[^A-Za-z0-9а-яА-Я.,-_ ]")
 		result = OnName[1:] if prog.match(OnName) else OnName[:]
-		result = re.sub("[^A-Za-z0-9а-яА-Я.,-_ ]", " ", result)
-		outname = str(result).replace('|', ' ').replace('%', ' ')\
-			.replace(':', ' ').replace('"', ' ').replace("'", " ")\
-			.replace('<', ' ').replace('>', ' ').replace('[', ' ')\
-			.replace(']', ' ').replace('{', ' ').replace('}', ' ')\
-			.replace('#', ' ').replace('$', ' ').replace('?', ' ')\
-			.replace('`', ' ').replace('~', ' ').replace('@', ' ')\
-			.replace('!', ' ').replace('&', ' ').replace('^', ' ')\
-			.replace('*', ' ').replace('\\', ' ').replace('/', ' ')\
-			.replace('+', ' ').replace('№', ' ').replace('^', ' ')\
-			.replace('=', ' ').replace('\r', ' ')
+		outname = re.sub("[^A-Za-z0-9а-яА-Я.,-_ ]", " ", result)
+		result = re.sub("[|%:\"'<>\[\]{}#$?`~@!&\^\*\\/\+№=\r]", " ", outname)
 		pattern = r'( )\1+'
 		repl = r'\1'
-		result = re.sub(pattern,repl,outname).strip()
-		return result.strip()
+		outname = re.sub(pattern,repl,result).replace('\\',' ').strip()
+		return outname
